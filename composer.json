@@ -1,0 +1,30 @@
+{
+    "name": "landrok/yousign-api",
+    "type": "library",
+    "version": "0.1.0-dev",
+    "description": "A PHP implementation of YouSign API.",
+    "keywords": ["Signature", "YouSign", "API"],
+    "homepage": "https://github.com/landrok/yousign-api",
+    "license": "MIT",
+    "require": {
+        "php": "^7.0",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "phpstan/phpstan": "^0.12.23"
+    },
+    "autoload": {
+        "psr-4": {
+            "Yousign\\": "src/Yousign/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "YousignTest\\": "tests/Yousign/"
+        }
+    },
+    "archive": {
+        "exclude": ["/docs"]
+    }
+}
