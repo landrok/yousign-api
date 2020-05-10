@@ -106,7 +106,6 @@ class BasicProcedureTest extends TestCase
                             "phone" => "+33612345678",
                             "fileObjects" => [
                                 [
-                                    "file" => "/files/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                                     "page" => 2,
                                     "position" => "230,499,464,589",
                                     "mention" => "Read and approved",

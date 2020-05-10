@@ -5,7 +5,7 @@ Yousign API client
 [![Maintainability](https://api.codeclimate.com/v1/badges/cad81750c32c5346ac6b/maintainability)](https://codeclimate.com/github/landrok/yousign-api/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/cad81750c32c5346ac6b/test_coverage)](https://codeclimate.com/github/landrok/yousign-api/test_coverage)
 
-Yousign API client is a wrapper for the Yousign API v2.
+Yousign API client is a wrapper for the Yousign API v2 in PHP.
 
 Its purpose is to use this API without having to write the HTTP calls
 yourself and to exploit the data returned through an object model.
@@ -77,7 +77,7 @@ $users = $yousign->getUsers();
 
 ```
 
-Good news, our token is available.
+Good news, your token is available.
 ________________________________________________________________________
 
 Responses and data
