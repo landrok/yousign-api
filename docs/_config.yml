@@ -1,0 +1,19 @@
+markdown: kramdown
+highlighter: rouge
+pygments: true
+
+enableRobotsTXT: true
+
+# Site name (head)
+name: Yousign API client Documentation
+
+# Site description (head)
+description: A PHP implementation of Yousign API client.
+
+# Github repositories and download URLs
+repository_url    : https://github.com/landrok/yousign-api
+doc_repository_url: https://github.com/landrok/yousign-api/tree/master/docs
+github_author_url : https://github.com/landrok
+doc_baseurl       : https://landrok.github.io/yousign-api
+github_author_name: landrok
+
