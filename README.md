@@ -2,8 +2,8 @@ Yousign API client
 ==================
 
 [![Build Status](https://travis-ci.org/landrok/yousign-api.svg?branch=master)](https://travis-ci.org/landrok/yousign-api)
-[![Maintainability](https://api.codeclimate.com/v1/badges/410c804f4cd03cc39b60/maintainability)](https://codeclimate.com/github/landrok/yousign-api/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/410c804f4cd03cc39b60/test_coverage)](https://codeclimate.com/github/landrok/yousign-api/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/cad81750c32c5346ac6b/maintainability)](https://codeclimate.com/github/landrok/yousign-api/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/cad81750c32c5346ac6b/test_coverage)](https://codeclimate.com/github/landrok/yousign-api/test_coverage)
 
 Yousign API client is a wrapper for the Yousign API v2.
 

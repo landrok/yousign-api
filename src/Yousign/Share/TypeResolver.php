@@ -42,7 +42,7 @@ abstract class TypeResolver
     {
         return array_key_exists(
             $name,
-            self::$modelTypes,
+            self::$modelTypes
         );
     }
 
