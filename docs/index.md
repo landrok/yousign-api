@@ -2,7 +2,7 @@
 layout: default
 ---
 
-[![Build Status](https://travis-ci.org/landrok/yousign-api.svg?branch=master)](https://travis-ci.org/landrok/yousign-api)
+[![Build Status](https://api.travis-ci.org/landrok/yousign-api.svg?branch=master)](https://travis-ci.org/landrok/yousign-api)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/cad81750c32c5346ac6b/test_coverage)](https://codeclimate.com/github/landrok/yousign-api/test_coverage)
 
 **Yousign API client** is a wrapper for the Yousign API v2 in PHP.
@@ -35,7 +35,7 @@ Table of contents
 - [Install](#install)
 - [Quick start](#quick-start)
     - [Making your first call](#making-your-first-call)
-    - [toArray()(#toarray)
+    - [toArray()](#toarray)
     - [toJson](#tojson)
     - [Iterate over a collection](#iterate-over-a-collection)
 - [Basic mode](#basic-mode)
@@ -94,7 +94,6 @@ These objects have several methods:
 You can use toArray() method to dump all data as a PHP array.
 
 ```php
-
 print_r(
     $users->toArray()
 );
@@ -105,7 +104,6 @@ print_r(
 You can use toJson() method to serialize all data as a JSON object.
 
 ```php
-
 echo $users->toJson();
 
 ```
@@ -115,7 +113,6 @@ echo $users->toJson();
 You can iterate over all items of a collection.
 
 ```php
-
 foreach ($users as $user) {
     /*
      * For each User model, some methods are available
@@ -200,7 +197,6 @@ When the procedure is created, you can retrieve all the data with the
 `getProcedure()` method.
 
 ```php
-
 echo $process->getProcedure()->toJson(JSON_PRETTY_PRINT);
 
 ```
@@ -326,13 +322,10 @@ More
   can contact me on Mastodon at
   [https://cybre.space/@landrok](https://cybre.space/@landrok)
 
-- [ActivityPub](https://www.w3.org/TR/yousign-api/)
+- Create an account and an API token on
+  [Yousign Sandbox sign-up](https://staging-auth.yousign.com/pre-signup)
 
-- [ActivityStreams 2.0](https://www.w3.org/TR/activitystreams-core/)
-
-- [JSON-LD](https://www.w3.org/TR/json-ld/)
-
-- [WebFinger](https://tools.ietf.org/html/rfc7033)
+- [Official API manual](https://dev.yousign.com/?version=latest)
 
 ________________________________________________________________________
 
