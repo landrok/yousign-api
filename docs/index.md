@@ -152,8 +152,8 @@ Basic Mode
 
 Let's create your first signature procedure in basic mode.
 
-All API calls are made behind the scene. Before calling the API, data is
-validated.
+All API calls are made behind the scene. Before calling the API, given
+parameters are validated.
 
 ```php
 use Yousign\YousignApi;
@@ -188,8 +188,8 @@ $process = $yousign
     ->execute();
 ```
 
-Note that the file is not given in `fileObjects` as it's automatically
-added in the process.
+Note that the file attribute is not set in `fileObjects` as it's 
+automatically added during the process.
 
 Until `execute()` method is called, nothing is sent to the API.
 
@@ -205,7 +205,7 @@ would output something like:
 
 ```
 {
-    "id": "\/procedures\/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+    "id": "/procedures/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
     "name": "My first procedure",
     "description": "Awesome! Here is the description of my first procedure",
     "createdAt": "2018-12-01T11:49:11+01:00",
@@ -216,7 +216,7 @@ would output something like:
     "creator": null,
     "creatorFirstName": null,
     "creatorLastName": null,
-    "workspace": "\/workspaces\/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+    "workspace": "/workspaces/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
     "template": false,
     "ordered": false,
     "parent": null,
@@ -224,7 +224,7 @@ would output something like:
     "config": [],
     "members": [
         {
-            "id": "\/members\/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+            "id": "/members/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
             "user": null,
             "type": "signer",
             "firstname": "John",
@@ -238,18 +238,18 @@ would output something like:
             "status": "pending",
             "fileObjects": [
                 {
-                    "id": "\/file_objects\/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+                    "id": "/file_objects/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                     "file": {
-                        "id": "\/files\/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+                        "id": "/files/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                         "name": "The best name for my file.pdf",
                         "type": "signable",
-                        "contentType": "application\/pdf",
+                        "contentType": "application/pdf",
                         "description": null,
                         "createdAt": "2018-12-01T11:36:20+01:00",
                         "updatedAt": "2018-12-01T11:49:11+01:00",
                         "sha256": "bb57ae2b2ca6ad0133a699350d1a6f6c8cdfde3cf872cf526585d306e4675cc2",
                         "metadata": [],
-                        "workspace": "\/workspaces\/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+                        "workspace": "/workspaces/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                         "creator": null,
                         "protected": false,
                         "position": 0,
@@ -279,16 +279,16 @@ would output something like:
     "subscribers": [],
     "files": [
         {
-            "id": "\/files\/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+            "id": "/files/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
             "name": "The best name for my file.pdf",
             "type": "signable",
-            "contentType": "application\/pdf",
+            "contentType": "application/pdf",
             "description": null,
             "createdAt": "2018-12-01T11:36:20+01:00",
             "updatedAt": "2018-12-01T11:49:11+01:00",
             "sha256": "bb57ae2b2ca6ad0133a699350d1a6f6c8cdfde3cf872cf526585d306e4675cc2",
             "metadata": [],
-            "workspace": "\/workspaces\/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+            "workspace": "/workspaces/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
             "creator": null,
             "protected": false,
             "position": 0,
