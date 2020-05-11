@@ -46,7 +46,7 @@ ________________________________________________________________________
 Requirements
 ------------
 
-- PHP7+
+- PHP 7.1+
 - You have to create your account on Yousign platform to get an API
 token before using this library.
 

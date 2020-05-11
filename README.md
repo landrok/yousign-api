@@ -43,7 +43,7 @@ ________________________________________________________________________
 Requirements
 ------------
 
-- PHP7+
+- PHP 7.1+
 - You have to create your account on Yousign platform to get an API
 token before using this library.
 
@@ -180,7 +180,7 @@ $process = $yousign
     ->execute();
 ```
 
-Note that the file atribute is not set in `fileObjects` as it's 
+Note that the file attribute is not set in `fileObjects` as it's 
 automatically added during the process.
 
 Until `execute()` method is called, nothing is sent to the API.
