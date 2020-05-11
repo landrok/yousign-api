@@ -1,7 +1,7 @@
 {
     "name": "landrok/yousign-api",
     "type": "library",
-    "version": "0.1.0-dev",
+    "version": "1.0",
     "description": "A PHP implementation of YouSign API.",
     "keywords": ["Signature", "YouSign", "API"],
     "homepage": "https://github.com/landrok/yousign-api",
