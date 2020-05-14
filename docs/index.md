@@ -2,7 +2,7 @@
 layout: default
 ---
 
-[![Build Status](https://travis-ci.org/landrok/yousign-api.svg?branch=master)](https://travis-ci.org/landrok/yousign-api)
+[![Build Status](https://api.travis-ci.org/landrok/yousign-api.svg?branch=master)](https://travis-ci.org/landrok/yousign-api)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/cad81750c32c5346ac6b/test_coverage)](https://codeclimate.com/github/landrok/yousign-api/test_coverage)
 
 **Yousign API client** is a wrapper for the Yousign API v2 in PHP.
@@ -35,7 +35,7 @@ Table of contents
 - [Install](#install)
 - [Quick start](#quick-start)
     - [Making your first call](#making-your-first-call)
-    - [toArray()(#toarray)
+    - [toArray()](#toarray)
     - [toJson](#tojson)
     - [Iterate over a collection](#iterate-over-a-collection)
 - [Basic mode](#basic-mode)
@@ -46,7 +46,7 @@ ________________________________________________________________________
 Requirements
 ------------
 
-- PHP7+
+- PHP 7.1+
 - You have to create your account on Yousign platform to get an API
 token before using this library.
 
@@ -94,7 +94,6 @@ These objects have several methods:
 You can use toArray() method to dump all data as a PHP array.
 
 ```php
-
 print_r(
     $users->toArray()
 );
@@ -105,7 +104,6 @@ print_r(
 You can use toJson() method to serialize all data as a JSON object.
 
 ```php
-
 echo $users->toJson();
 
 ```
@@ -115,7 +113,6 @@ echo $users->toJson();
 You can iterate over all items of a collection.
 
 ```php
-
 foreach ($users as $user) {
     /*
      * For each User model, some methods are available
@@ -160,11 +157,6 @@ features.
 
 ```php
 use Yousign\YousignApi;
-
-/*
- * Token
- */
-$token = '123456789';
 
 /*
  * Production mode
@@ -224,7 +216,7 @@ It would output something like:
 
 ```json
 {
-    "id": "\/procedures\/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+    "id": "/procedures/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
     "name": "My first procedure",
     "description": "Awesome! Here is the description of my first procedure",
     "createdAt": "2018-12-01T11:49:11+01:00",
@@ -235,7 +227,7 @@ It would output something like:
     "creator": null,
     "creatorFirstName": null,
     "creatorLastName": null,
-    "workspace": "\/workspaces\/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+    "workspace": "/workspaces/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
     "template": false,
     "ordered": false,
     "parent": null,
@@ -243,7 +235,7 @@ It would output something like:
     "config": [],
     "members": [
         {
-            "id": "\/members\/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+            "id": "/members/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
             "user": null,
             "type": "signer",
             "firstname": "John",
@@ -257,18 +249,18 @@ It would output something like:
             "status": "pending",
             "fileObjects": [
                 {
-                    "id": "\/file_objects\/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+                    "id": "/file_objects/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                     "file": {
-                        "id": "\/files\/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+                        "id": "/files/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                         "name": "The best name for my file.pdf",
                         "type": "signable",
-                        "contentType": "application\/pdf",
+                        "contentType": "application/pdf",
                         "description": null,
                         "createdAt": "2018-12-01T11:36:20+01:00",
                         "updatedAt": "2018-12-01T11:49:11+01:00",
                         "sha256": "bb57ae2b2ca6ad0133a699350d1a6f6c8cdfde3cf872cf526585d306e4675cc2",
                         "metadata": [],
-                        "workspace": "\/workspaces\/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+                        "workspace": "/workspaces/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                         "creator": null,
                         "protected": false,
                         "position": 0,
@@ -298,16 +290,16 @@ It would output something like:
     "subscribers": [],
     "files": [
         {
-            "id": "\/files\/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-            "name": "My filename.pdf",
+            "id": "/files/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+            "name": "The best name for my file.pdf",
             "type": "signable",
-            "contentType": "application\/pdf",
+            "contentType": "application/pdf",
             "description": null,
             "createdAt": "2018-12-01T11:36:20+01:00",
             "updatedAt": "2018-12-01T11:49:11+01:00",
             "sha256": "bb57ae2b2ca6ad0133a699350d1a6f6c8cdfde3cf872cf526585d306e4675cc2",
             "metadata": [],
-            "workspace": "\/workspaces\/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+            "workspace": "/workspaces/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
             "creator": null,
             "protected": false,
             "position": 0,
@@ -424,13 +416,10 @@ More
   can contact me on Mastodon at
   [https://cybre.space/@landrok](https://cybre.space/@landrok)
 
-- [ActivityPub](https://www.w3.org/TR/yousign-api/)
+- Create an account and an API token on
+  [Yousign Sandbox sign-up](https://staging-auth.yousign.com/pre-signup)
 
-- [ActivityStreams 2.0](https://www.w3.org/TR/activitystreams-core/)
-
-- [JSON-LD](https://www.w3.org/TR/json-ld/)
-
-- [WebFinger](https://tools.ietf.org/html/rfc7033)
+- [Official API manual](https://dev.yousign.com/?version=latest)
 
 ________________________________________________________________________
 
