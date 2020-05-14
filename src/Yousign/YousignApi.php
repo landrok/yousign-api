@@ -4,6 +4,8 @@ namespace Yousign;
 
 use Yousign\Model\Factory;
 use Yousign\Model\File;
+use Yousign\Model\FileObject;
+use Yousign\Model\Member;
 use Yousign\Model\Procedure;
 use Yousign\Model\UserCollection;
 use Yousign\Process\BasicProcess;
@@ -79,6 +81,60 @@ class YousignApi
         );
 
         return Factory::createProcedure(
+            json_decode($response->getBody(), true)
+        );
+    }
+
+    /**
+     * Put a procedure to the API
+     *
+     * @return \Yousign\Model\Procedure
+     */
+    public function putProcedure(string $id, array $procedure): Procedure
+    {
+        $response = $this->client->put(
+            $id, [
+                'body' => json_encode($procedure)
+            ]
+        );
+
+        return Factory::createProcedure(
+            json_decode($response->getBody(), true)
+        );
+    }
+
+    /**
+     * Post a member to the API
+     *
+     * @return \Yousign\Model\Member
+     */
+    public function postMember(array $member): Member
+    {
+        $response = $this->client->post(
+            '/members', [
+                'body' => json_encode($member)
+            ]
+        );
+
+        return Factory::createMember(
+            json_decode($response->getBody(), true)
+        );
+    }
+
+    /**
+     * Post a file object to the API
+     *
+     * @return \Yousign\Model\FileObject
+     */
+    public function postFileObject(array $fileObject): FileObject
+    {
+        $response = $this->client->post(
+            '/file_objects', [
+                'body' => json_encode($fileObject)
+            ]
+        );
+
+        return Factory::createFileObject(
             json_decode($response->getBody(), true)
         );
     }

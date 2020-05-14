@@ -13,6 +13,10 @@ namespace Yousign\Model;
 
 /**
  * \Yousign\Model\FileCollection handles a pool of files data
+ *
+ * @method int count()
+ * @method mixed offsetGet(int $index)
+ * @method mixed offsetSet(int $index, mixed $data)
  */
 class FileCollection extends AbstractModelCollection
 {}

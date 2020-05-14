@@ -30,7 +30,7 @@ abstract class AbstractModel
      * @param  mixed  $value
      * @return $this
      */
-    public function set($name, $value): self
+    public function set(string $name, $value): self
     {
         $this->properties[$name] = $this->transform($name, $value);
 
@@ -72,7 +72,7 @@ abstract class AbstractModel
      * @param  string $name
      * @return bool
      */
-    public function has($name): bool
+    public function has(string $name): bool
     {
         return $this->__isset($name);
     }
@@ -116,7 +116,7 @@ abstract class AbstractModel
      * @param string $name
      * @return bool
      */
-    public function __isset($name)
+    public function __isset(string $name)
     {
         return isset($this->properties[$name])
             || array_key_exists($name, $this->properties);
@@ -128,7 +128,7 @@ abstract class AbstractModel
      * @param string $name
      * @return mixed
      */
-    public function __get($name)
+    public function __get(string $name)
     {
         return $this->get($name);
     }
@@ -141,7 +141,7 @@ abstract class AbstractModel
      * @return mixed
      * @throws \Exception when a called method is not defined
      */
-    public function __call($name, array $arguments = [])
+    public function __call(string $name, array $arguments = [])
     {
         // Getters
         if (strpos($name, 'get') === 0) {

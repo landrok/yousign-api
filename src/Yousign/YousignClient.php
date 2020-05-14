@@ -107,6 +107,16 @@ class YousignClient
     }
 
     /**
+     * HTTP PUT wrapper
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function put(string $uri, array $params): ResponseInterface
+    {
+        return $this->send('put', $uri, $params);
+    }
+
+    /**
      * Send HTTP request
      *
      * @throws \Exception when an HTTP error occured
@@ -116,7 +126,11 @@ class YousignClient
         try {
             return $this->getClient()->$method($uri, $params);
         } catch (RequestException $e) {
-            $message = Psr7\str($e->getRequest());
+            $message = sprintf(
+                "%s\n%s\n",
+                $e->getMessage(),
+                Psr7\str($e->getRequest())
+            );
             if ($e->hasResponse()) {
                 $message .= "\n" . Psr7\str($e->getResponse());
             }
