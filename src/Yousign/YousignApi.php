@@ -50,7 +50,7 @@ class YousignApi
     /**
      * Post a file to the API
      *
-     * @return \Yousign\YousignClient
+     * @return \Yousign\Model\File
      */
     public function postFile(array $file): File
     {
@@ -68,7 +68,7 @@ class YousignApi
     /**
      * Post a procedure to the API
      *
-     * @return \Yousign\YousignClient
+     * @return \Yousign\Model\Procedure
      */
     public function postProcedure(array $procedure): Procedure
     {
@@ -99,7 +99,7 @@ class YousignApi
     }
 
     /**
-     * Utilisation de la procédure basique en 2 temps
+     * Basic mode
      */
     public function basic(): BasicProcess
     {

@@ -17,6 +17,8 @@ use SplStack;
 
 /*
  * @implements \IteratorAggregate<int, AbstractModel>
+ *
+ * @method int count()
  */
 abstract class AbstractModelCollection implements IteratorAggregate
 {

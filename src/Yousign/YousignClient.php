@@ -34,7 +34,7 @@ class YousignClient
     /**
      * Authenticated HTTP client for Yousign API
      *
-     * @var \GuzzleHttp\Client
+     * @var null|\GuzzleHttp\Client
      */
     private $client;
 
@@ -111,7 +111,7 @@ class YousignClient
      *
      * @throws \Exception when an HTTP error occured
      */
-    public function send($method, $uri, $params): ResponseInterface
+    public function send(string $method, string $uri, array $params = []): ResponseInterface
     {
         try {
             return $this->getClient()->$method($uri, $params);

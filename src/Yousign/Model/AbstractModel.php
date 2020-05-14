@@ -87,7 +87,8 @@ abstract class AbstractModel
     {
         return array_map(
             function($value) {
-                return is_object($value)
+                return $value instanceof AbstractModel
+                    || $value instanceof AbstractModelCollection
                     ? $value->toArray()
                     : $value;
             },
