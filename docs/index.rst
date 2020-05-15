@@ -1,11 +1,13 @@
-Yousign API client
-==================
+.. title:: Yousign API client in PHP
+
+================================
+Yousign API client Documentation
+================================
 
 [![Build Status](https://api.travis-ci.org/landrok/yousign-api.svg?branch=master)](https://travis-ci.org/landrok/yousign-api)
-[![Maintainability](https://api.codeclimate.com/v1/badges/cad81750c32c5346ac6b/maintainability)](https://codeclimate.com/github/landrok/yousign-api/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/cad81750c32c5346ac6b/test_coverage)](https://codeclimate.com/github/landrok/yousign-api/test_coverage)
 
-Yousign API client is a wrapper for the Yousign API v2 in PHP.
+**Yousign API client** is a wrapper for the Yousign API v2 in PHP.
 
 Its purpose is to use this API without having to write the HTTP calls
 yourself and to exploit the data returned through an object model.
@@ -13,131 +15,24 @@ yourself and to exploit the data returned through an object model.
 If you still want to make HTTP calls to check the API responses, this is
 possible thanks to the low-level calls.
 
-It provides several layers:
-
-- A low-level API client (Yousign\YousignClient)
-- An API wrapper (Yousign\YousignApi)
-    - A wrapper for the basic procedure
-    - A wrapper for the extended procedure
+It provides a low-level API client (`Yousign\YousignApi`) and some shortcuts
+methods for basic and advanced modes.
 
 As all the API calls are wrapped into an object model, it aims to be a
 full-featured client.
 
-All subsequent types (Member, Procedure, File, etc...) are implemented
-too.
+All subsequent types (Member, Procedure, File, FileObject, etc...) are 
+implemented too.
 
-[See the full documentation](https://landrok.github.io/yousign-api) or
-an overview below.
+User Guide
+==========
 
-Table of contents
-=================
+.. toctree::
+    :maxdepth: 3
 
-- [Requirements](#requirements)
-- [Install](#install)
-- [Quick start](#quick-start)
-- [Basic mode](#basic-mode)
-- [Advanced mode](#advanced-mode)
-
-________________________________________________________________________
-
-Requirements
-------------
-
-- PHP 7.1+
-- You have to create your account on Yousign platform to get an API
-token before using this library.
-
-________________________________________________________________________
-
-Install
--------
-
-```sh
-composer require landrok/yousign-api
-```
-
-________________________________________________________________________
-
-Quick start
------------
-
-In this example, we will get all users in staging mode.
-
-```php
-use Yousign\YousignApi;
-
-/*
- * token
- */
-$token = '123456789';
-
-$yousign = new YousignApi($token);
-
-$users = $yousign->getUsers();
-
-```
-
-Good news, your token is available.
-
-
-________________________________________________________________________
-
-Responses and data
-------------------
-
-All API responses are converted into objects that are iterable when it's
-a collection (ie a list of users) or an item (an user itself).
-
-### Dump data
-
-You can use toArray() method to dump all data as a PHP array.
-
-```php
-
-print_r(
-    $users->toArray()
-);
-
-```
-
-### Iterate over a list
-
-You can iterate over all items of a collection.
-
-```php
-
-foreach ($users as $user) {
-    /*
-     * For each User model, some methods are available
-     */
-
-    // toArray(): to get all property values
-    print_r($user->toArray());
-
-    // get + property name
-    echo PHP_EOL . "User.id=" . $user->getId();
-
-    // property (read-only)
-    echo PHP_EOL . "User.id=" . $user->id;
-
-    // Some properties are models that you can use the same way
-    echo PHP_EOL . "User.Group.id=" . $user->getGroup()->getId();
-    echo PHP_EOL . "User.Group.id=" . $user->group->id;
-
-    // Some properties are collections that you can iterate
-    foreach ($user->group->permissions as $index => $permission) {
-        echo PHP_EOL . "User.Group.Permission.name=" . $permission->getName();
-    }
-
-    // At any level, you can call a toArray() to dump the current model
-    // and its children
-    echo PHP_EOL . "User.Group=\n";
-    print_r($user->group->toArray());
-    echo PHP_EOL . "User.Group.Permissions=\n";
-    print_r($user->group->permissions->toArray());
-}
-
-```
+    quickstart
+    basic-mode
+    advanced-mode
 ________________________________________________________________________
 
 Basic Mode
@@ -150,11 +45,6 @@ features.
 
 ```php
 use Yousign\YousignApi;
-
-/*
- * Token
- */
-$token = '123456789';
 
 /*
  * Production mode
@@ -173,7 +63,7 @@ $file = $yousign->postFile([
     'name'    => 'My filename.pdf',
     'content' => base64_encode(
         file_get_contents(
-            dirname(__DIR__, 2) . '/tests/samples/test-file-1.pdf'
+            '/my_storage_path/test-file-1.pdf'
         )
     )
 ]);
@@ -214,7 +104,7 @@ It would output something like:
 
 ```json
 {
-    "id": "\/procedures\/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+    "id": "/procedures/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
     "name": "My first procedure",
     "description": "Awesome! Here is the description of my first procedure",
     "createdAt": "2018-12-01T11:49:11+01:00",
@@ -225,7 +115,7 @@ It would output something like:
     "creator": null,
     "creatorFirstName": null,
     "creatorLastName": null,
-    "workspace": "\/workspaces\/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+    "workspace": "/workspaces/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
     "template": false,
     "ordered": false,
     "parent": null,
@@ -233,7 +123,7 @@ It would output something like:
     "config": [],
     "members": [
         {
-            "id": "\/members\/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+            "id": "/members/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
             "user": null,
             "type": "signer",
             "firstname": "John",
@@ -247,18 +137,18 @@ It would output something like:
             "status": "pending",
             "fileObjects": [
                 {
-                    "id": "\/file_objects\/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+                    "id": "/file_objects/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                     "file": {
-                        "id": "\/files\/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+                        "id": "/files/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                         "name": "The best name for my file.pdf",
                         "type": "signable",
-                        "contentType": "application\/pdf",
+                        "contentType": "application/pdf",
                         "description": null,
                         "createdAt": "2018-12-01T11:36:20+01:00",
                         "updatedAt": "2018-12-01T11:49:11+01:00",
                         "sha256": "bb57ae2b2ca6ad0133a699350d1a6f6c8cdfde3cf872cf526585d306e4675cc2",
                         "metadata": [],
-                        "workspace": "\/workspaces\/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+                        "workspace": "/workspaces/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                         "creator": null,
                         "protected": false,
                         "position": 0,
@@ -288,16 +178,16 @@ It would output something like:
     "subscribers": [],
     "files": [
         {
-            "id": "\/files\/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-            "name": "My filename.pdf",
+            "id": "/files/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+            "name": "The best name for my file.pdf",
             "type": "signable",
-            "contentType": "application\/pdf",
+            "contentType": "application/pdf",
             "description": null,
             "createdAt": "2018-12-01T11:36:20+01:00",
             "updatedAt": "2018-12-01T11:49:11+01:00",
             "sha256": "bb57ae2b2ca6ad0133a699350d1a6f6c8cdfde3cf872cf526585d306e4675cc2",
             "metadata": [],
-            "workspace": "\/workspaces\/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+            "workspace": "/workspaces/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
             "creator": null,
             "protected": false,
             "position": 0,
@@ -311,6 +201,10 @@ It would output something like:
     "permissions": []
 }
 ```
+
+If you want to create your signature procedure in basic mode with a more
+high-level feature, see this manual.
+
 ________________________________________________________________________
 
 Advanced Mode
@@ -318,7 +212,7 @@ Advanced Mode
 
 Here is how to create a procedure in 5 steps with the advanced mode.
 
-```php
+```
 use Yousign\YousignApi;
 
 /*
@@ -369,6 +263,7 @@ $member = $yousign->postMember([
     "procedure"     => $procedure->getId(),
 ]);
 
+
 /*
  * Step 4 - Add the signature images
  */
@@ -395,15 +290,15 @@ echo $procedure->toJson(JSON_PRETTY_PRINT);
 ```
 
 In step 3, you may add several members.
-
 In step 4, you may add one or more signature images for each one.
 
 ________________________________________________________________________
 
+
 More
 ----
 
-- [See the full documentation](https://landrok.github.io/yousign-api/)
+- [Contribute on Github](https://github.com/landrok/yousign-api)
 
 - To discuss new features, make feedback or simply to share ideas, you
   can contact me on Mastodon at
@@ -414,3 +309,9 @@ More
 
 - [Official API manual](https://dev.yousign.com/?version=latest)
 
+________________________________________________________________________
+
+
+
+{% capture doc_url %}{{ site.doc_repository_url }}/index.md{% endcapture %}
+{% include edit-doc-link.html %}
