@@ -21,11 +21,11 @@ exclude_patterns = ['_build']
 html_static_path = ['_static']
 
 #### sphinx theme
-
-import sphinx_rtd_theme
-html_translator_class = 'sphinx_rtd_theme.HTMLTranslator'
-html_theme_path = sphinx_rtd_theme.html_theme_path()
 html_theme = 'sphinx_rtd_theme'
+html_theme_options = {
+    'collapse_navigation': True,
+    'display_version': False
+}
 
 # Custom sidebar templates, maps document names to template names.
 html_sidebars = {
@@ -58,7 +58,7 @@ html_theme_options = {
 
     # Specify a base_url used to generate sitemap.xml links. If not
     # specified, then no sitemap will be built.
-    "base_url": "https://yousign-api-client.readthedocs.io"
+    "base_url": "https://yousign-api.readthedocs.io"
 
     # Allow the "Table of Contents" page to be defined separately from "master_doc"
     # tocpage = Contents
