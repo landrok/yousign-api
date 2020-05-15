@@ -8,6 +8,7 @@ In this example, we will accomplish this mode with low-level
 features.
 
 .. code-block:: php
+
     use Yousign\YousignApi;
 
     /*

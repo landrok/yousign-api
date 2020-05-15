@@ -16,6 +16,7 @@ Install
 =======
 
 .. code-block:: sh
+
     composer require landrok/yousign-api
 
 Making your first call
@@ -24,6 +25,7 @@ Making your first call
 In this example, we will get all users in staging mode.
 
 .. code-block:: php
+
     use Yousign\YousignApi;
 
     /*
@@ -34,6 +36,7 @@ In this example, we will get all users in staging mode.
     $yousign = new YousignApi($token);
 
     $users = $yousign->getUsers();
+
 
 `$users` contains an iterable `UserCollection` object. This collection
 
@@ -48,9 +51,11 @@ toArray()
 You can use toArray() method to dump all data as a PHP array.
 
 .. code-block:: php
+
     print_r(
         $users->toArray()
     );
+
 
 toJson()
 --------
@@ -58,6 +63,7 @@ toJson()
 You can use toJson() method to serialize all data as a JSON object.
 
 .. code-block:: php
+
     echo $users->toJson();
 
 
@@ -67,6 +73,7 @@ Iterate over a collection
 You can iterate over all items of a collection.
 
 .. code-block:: php
+
     foreach ($users as $user) {
         /*
          * For each User model, some methods are available
