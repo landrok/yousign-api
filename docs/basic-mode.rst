@@ -62,11 +62,12 @@ features.
     echo $procedure->toJson(JSON_PRETTY_PRINT);
 
 When the procedure is created, you can retrieve all the data with the
-getters or dump all data with `toJson()` and `toArray()` methods.
+getters or dump all data with *toJson()* and *toArray()* methods.
 
 It would output something like:
 
 .. code-block:: JSON
+
     {
         "id": "/procedures/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
         "name": "My first procedure",

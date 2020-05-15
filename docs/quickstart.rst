@@ -15,9 +15,10 @@ token before using this library.
 Install
 =======
 
-.. code-block:: sh
+.. code-block:: console
 
     composer require landrok/yousign-api
+
 
 Making your first call
 ======================
@@ -38,7 +39,7 @@ In this example, we will get all users in staging mode.
     $users = $yousign->getUsers();
 
 
-`$users` contains an iterable `UserCollection` object. This collection
+*$users* contains an iterable *UserCollection* object. This collection
 
 All API responses are converted into objects that are iterable when it's
 a collection (ie a list of users) or an item (an user itself).

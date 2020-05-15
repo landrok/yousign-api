@@ -33,7 +33,6 @@ User Guide
     basic-mode
     advanced-mode
 
-
 ________________________________________________________________________
 
 
@@ -41,7 +40,6 @@ More
 ----
 
 - `Contribute on Github <https://github.com/landrok/yousign-api>`_
-- []()
 
 - To discuss new features, make feedback or simply to share ideas, you
   can contact me on Mastodon at
