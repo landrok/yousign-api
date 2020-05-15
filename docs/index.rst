@@ -4,8 +4,7 @@
 Yousign API client Documentation
 ================================
 
-[![Build Status](https://api.travis-ci.org/landrok/yousign-api.svg?branch=master)](https://travis-ci.org/landrok/yousign-api)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/cad81750c32c5346ac6b/test_coverage)](https://codeclimate.com/github/landrok/yousign-api/test_coverage)
+|build-status| |coverage|
 
 **Yousign API client** is a wrapper for the Yousign API v2 in PHP.
 
@@ -309,9 +308,12 @@ More
 
 - [Official API manual](https://dev.yousign.com/?version=latest)
 
-________________________________________________________________________
 
+.. |build-status| image:: https://api.travis-ci.org/landrok/yousign-api.svg?branch=master
+    :alt: Build status
+    :target: https://travis-ci.org/landrok/yousign-api
 
+.. |coverage| image:: https://api.codeclimate.com/v1/badges/cad81750c32c5346ac6b/test_coverage
+    :alt: Test coverage
+    :target: https://codeclimate.com/github/landrok/yousign-api/test_coverage
 
-{% capture doc_url %}{{ site.doc_repository_url }}/index.md{% endcapture %}
-{% include edit-doc-link.html %}
