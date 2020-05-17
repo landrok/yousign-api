@@ -87,3 +87,15 @@ procedure.
 When the 3 steps are done, you can add members, file objects and start
 the procedure. See the steps 3, 4 ,5 in :ref:`Advanced mode`.
 
+________________________________________________________________________
+
+----
+User
+----
+
+Add a member
+------------
+
+
+Create a user
+-------------

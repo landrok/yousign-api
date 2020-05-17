@@ -8,25 +8,20 @@ Yousign API client
 Yousign API client is a wrapper for the Yousign API v2 in PHP.
 
 Its purpose is to use this API without having to write the HTTP calls
-yourself and to exploit the data returned through an object model.
+yourself and then to retrieve the returned data through an object model.
 
 If you still want to make HTTP calls to check the API responses, this is
 possible thanks to the low-level calls.
 
-It provides several layers:
+It provides several an API wrapper and shortcut methods.
 
-- A low-level API client (Yousign\YousignClient)
-- An API wrapper (Yousign\YousignApi)
-    - A wrapper for the basic procedure
-    - A wrapper for the extended procedure
-
-As all the API calls are wrapped into an object model, it aims to be a
-full-featured client.
+All the API calls are wrapped into an object model. All features are
+implemented, it aims to be a full-featured client.
 
 All subsequent types (Member, Procedure, File, etc...) are implemented
 too.
 
-[See the full documentation](https://landrok.github.io/yousign-api) or
+[See the full documentation](https://yousign-api.readthedocs.io/) or
 an overview below.
 
 Table of contents
@@ -403,7 +398,7 @@ ________________________________________________________________________
 More
 ----
 
-- [See the full documentation](https://landrok.github.io/yousign-api/)
+- [See the full documentation](https://yousign-api.readthedocs.io/)
 
 - To discuss new features, make feedback or simply to share ideas, you
   can contact me on Mastodon at
