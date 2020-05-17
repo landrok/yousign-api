@@ -31,6 +31,7 @@ User Guide
     quickstart
     basic-mode
     advanced-mode
+    advanced-features
 
 ________________________________________________________________________
 
