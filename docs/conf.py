@@ -36,6 +36,9 @@ html_sidebars = {
 # Register the theme as an extension to generate a sitemap.xml
 extensions.append("sphinx_rtd_theme")
 
+# If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
+html_show_sphinx = False
+
 # Theme options (see theme.conf for more information)
 html_theme_options = {
 

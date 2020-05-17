@@ -12,6 +12,12 @@ features.
     use Yousign\YousignApi;
 
     /*
+     * API token
+     */
+    $token = '123456789';
+
+
+    /*
      * Production mode
      */
     $production = false;
@@ -168,4 +174,4 @@ It would output something like:
 
 
 If you want to create your signature procedure in basic mode with a more
-high-level feature, see this manual.
+high-level feature, see this manual (Coming soon).

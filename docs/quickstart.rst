@@ -2,15 +2,14 @@
 Quickstart
 ==========
 
-This page provides installation advises and a short examples on how
-to make a first call and retrieve your data.
+This page provides requirements, install advises and short examples on
+how to make a first call and retrieve your data.
 
 Requirements
 ============
 
 - PHP 7.1+
-- You have to create your account on Yousign platform to get an API
-token before using this library.
+- You have to create your account on `Yousign platform <https://staging-auth.yousign.com/pre-signup>`_ to get an API token before using this library.
 
 Install
 =======
@@ -39,12 +38,14 @@ In this example, we will get all users in staging mode.
     $users = $yousign->getUsers();
 
 
-*$users* contains an iterable *UserCollection* object. This collection
+*$users* contains an iterable *UserCollection* object.
 
-All API responses are converted into objects that are iterable when it's
-a collection (ie a list of users) or an item (an user itself).
+All API responses are converted into objects.
 
-These objects have several methods:
+All of them offer *toArray()*, *toJson()* methods and getters to
+access their properties.
+
+*Collection* objects are iterable.
 
 toArray()
 ---------
