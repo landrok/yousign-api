@@ -7,6 +7,7 @@ use Yousign\Model\File;
 use Yousign\Model\FileObject;
 use Yousign\Model\Member;
 use Yousign\Model\Procedure;
+use Yousign\Model\User;
 use Yousign\Model\UserCollection;
 use Yousign\Process\BasicProcess;
 
@@ -150,6 +151,24 @@ class YousignApi
         $response = $this->client->get('/users');
 
         return Factory::createUserCollection(
+            json_decode($response->getBody(), true)
+        );
+    }
+
+    /**
+     * Create an user
+     *
+     * @return \Yousign\Model\User
+     */
+    public function postUser(array $user): User
+    {
+        $response = $this->client->post(
+            '/users', [
+                'body' => json_encode($user)
+            ]
+        );
+
+        return Factory::createUser(
             json_decode($response->getBody(), true)
         );
     }

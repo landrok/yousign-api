@@ -5,6 +5,54 @@ namespace YousignTest;
 abstract class DataHelper
 {
     /**
+     * Provide a fake created user
+     */
+    public static function getFakeCreatedUser(): array
+    {
+        return json_decode('{
+    "id": "/users/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+    "firstname": "John",
+    "lastname": "Doe",
+    "email": "api@yousign.fr",
+    "title": "API teacher",
+    "phone": "+33612345678",
+    "status": "not_activated",
+    "organization": "/organizations/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+    "workspaces": [
+        {
+            "id": "/workspaces/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+            "name": "Acme"
+        }
+    ],
+    "permission": "ROLE_MANAGER",
+    "group": {
+        "id": "/user_groups/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+        "name": "Gestionnaire",
+        "permissions": [
+            "procedure_write",
+            "procedure_template_write",
+            "procedure_create_from_template",
+            "contact",
+            "archive"
+        ]
+    },
+    "createdAt": "2018-12-03T07:33:01+01:00",
+    "updatedAt": "2018-12-03T07:33:01+01:00",
+    "deleted": false,
+    "deletedAt": null,
+    "config": [],
+    "inweboUserRequest": null,
+    "samlNameId": null,
+    "defaultSignImage": null,
+    "notifications": {
+        "procedure": true
+    },
+    "fastSign": false,
+    "fullName": "John Doe"
+}', true);
+
+    }
+    /**
      * Provide a fake user
      */
     public static function getFakeUser(): array

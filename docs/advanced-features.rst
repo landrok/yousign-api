@@ -77,7 +77,7 @@ procedure.
 
 
 When the 3 steps are done, you can add members, file objects and start
-the procedure. See the steps 3, 4 ,5 in :ref:`advanced-mode`.
+the procedure. See the steps 3, 4 ,5 in :ref:`Advanced mode`.
 
 ________________________________________________________________________
 
@@ -100,7 +100,7 @@ Add an internal member
 ----------------------
 
 Previously, we saw how to add an external member to sign a document (See
-:ref: `basic-mode.basic-mode` or :ref:`advanced-mode.advanced-mode`).
+:ref:`Basic mode` or :ref:`Advanced mode`).
 
 In the following example, we'll see how to attach an internal member (an
 user) to a procedure. You must know the user id. In this case, you don't
