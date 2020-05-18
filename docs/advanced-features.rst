@@ -237,7 +237,112 @@ ________________________________________________________________________
 Create a user
 -------------
 
+Before using this API client to create users, please consider this
+notes from the Yousign API For Developers site.
 
+.. warning::
+
+    Our API makes it possible to create users but a fundamental concept
+    to understand on this topic is that a user here is not only
+    considered as a signer but also as a user of the Yousign
+    application.
+
+    This implies that each user created by this means (API) or through
+    the application will be billed according to your plan.
+
+    As a reminder, with each of our API plans you benefit from a free
+    user with access to our application. Others will be billed.
+
+    The need to automatically create, via API, a user with access to the
+    application can be interesting for software editors, resellers or
+    large organizations who want to control their access centrally.
+
+    These are therefore very specific cases and in the majority of cases
+    it's not necessary to use this feature. Before any development on
+    your side, we invite you to contact our technical support to share
+    your needs with us and we can advise you to achieve the best
+    possible integration.
+
+
+So, let's create users.
+
+.. code-block:: php
+
+    use Yousign\YousignApi;
+
+    /*
+     * API token
+     */
+    $token = '123456789';
+
+    /*
+     * Production mode
+     */
+    $production = false;
+
+    /*
+     * Instanciate API wrapper
+     */
+    $yousign = new YousignApi($token, $production);
+
+    /*
+     * Create an user
+     */
+    $user = $yousign->postUser([
+        "firstname" => "John",
+        "lastname" => "Doe",
+        "email" => "api@yousign.fr",
+        "title" => "API teacher",
+        "phone" => "+33612345678",
+        "organization" => "/organizations/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+    ]);
+
+    echo $user->toJson(JSON_PRETTY_PRINT);
+
+
+.. code-block:: json
+
+{
+    "id": "/users/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+    "firstname": "John",
+    "lastname": "Doe",
+    "email": "api@yousign.fr",
+    "title": "API teacher",
+    "phone": "+33612345678",
+    "status": "not_activated",
+    "organization": "/organizations/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+    "workspaces": [
+        {
+            "id": "/workspaces/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+            "name": "Acme"
+        }
+    ],
+    "permission": "ROLE_MANAGER",
+    "group": {
+        "id": "/user_groups/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+        "name": "Gestionnaire",
+        "permissions": [
+            "procedure_write",
+            "procedure_template_write",
+            "procedure_create_from_template",
+            "contact",
+            "archive"
+        ]
+    },
+    "createdAt": "2018-12-03T07:33:01+01:00",
+    "updatedAt": "2018-12-03T07:33:01+01:00",
+    "deleted": false,
+    "deletedAt": null,
+    "config": [],
+    "inweboUserRequest": null,
+    "samlNameId": null,
+    "defaultSignImage": null,
+    "notifications": {
+        "procedure": true
+    },
+    "fastSign": false,
+    "fullName": "John Doe"
+}
 
 ________________________________________________________________________
 
