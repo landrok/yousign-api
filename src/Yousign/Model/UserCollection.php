@@ -15,6 +15,4 @@ namespace Yousign\Model;
  * \Yousign\Model\UserCollection handles a pool of user data
  */
 class UserCollection extends AbstractModelCollection
-{
-
-}
+{}

@@ -29,6 +29,6 @@ class PermissionCollection extends AbstractModelCollection
             $stack[] = current($value->toArray());
         }
 
-        return array_reverse($stack);
+        return $stack;
     }
 }

@@ -13,7 +13,7 @@ namespace Yousign\Model;
 
 use Exception;
 use IteratorAggregate;
-use SplStack;
+use SplDoublyLinkedList;
 
 /*
  * @implements \IteratorAggregate<int, AbstractModel>
@@ -23,7 +23,7 @@ use SplStack;
 abstract class AbstractModelCollection implements IteratorAggregate
 {
     /**
-     * @var \SplStack
+     * @var \SplDoublyLinkedList
      *
      * Internal stack
      */
@@ -31,7 +31,7 @@ abstract class AbstractModelCollection implements IteratorAggregate
 
     final public function __construct()
     {
-        $this->stack = new SplStack();
+        $this->stack = new SplDoublyLinkedList();
     }
 
     /**
@@ -47,7 +47,7 @@ abstract class AbstractModelCollection implements IteratorAggregate
     /*
      * @return \SplStack<int, AbstractModel>
      */
-    public function getIterator(): SplStack
+    public function getIterator(): SplDoublyLinkedList
     {
         return $this->stack;
     }
@@ -61,12 +61,13 @@ abstract class AbstractModelCollection implements IteratorAggregate
     public function toArray(): array
     {
         $stack = [];
+        $this->stack->rewind();
 
         foreach ($this->stack as $index => $value) {
-            $stack[$index] = $value->toArray();
+            $stack[] = $value->toArray();
         }
 
-        return array_reverse($stack);
+        return $stack;
     }
 
     /**
