@@ -6,6 +6,8 @@ This page provides short examples on how to make your first call and
 retrieve your data.
 
 
+.. _make_first_call_tutorial:
+
 Making your first call
 ======================
 

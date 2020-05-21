@@ -42,6 +42,7 @@ User Guide
     basic-mode
     advanced-mode
     advanced-features
+    api-reference
 
 ________________________________________________________________________
 

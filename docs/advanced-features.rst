@@ -1,3 +1,5 @@
+.. _advanced_features_tutorial:
+
 =================
 Advanced features
 =================
