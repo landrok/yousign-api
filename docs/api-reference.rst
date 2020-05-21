@@ -334,7 +334,7 @@ ________________________________________________________________________
 putProcedure(string $id, array $procedure)
 ------------------------------------------
 
-Update a procedure. Start a procedure in ref:`advanced_mode_tutorial`.
+Update a procedure. Start a procedure in :ref:`advanced_mode_tutorial`.
 
 Parameters
 ~~~~~~~~~~
@@ -396,7 +396,7 @@ setClientOptions(array $options)
 Parameters
 ~~~~~~~~~~
 
-*array* See <http://docs.guzzlephp.org/en/stable/request-options.html>
+*array* See http://docs.guzzlephp.org/en/stable/request-options.html
 
 Return Values
 ~~~~~~~~~~~~~

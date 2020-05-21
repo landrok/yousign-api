@@ -31,11 +31,14 @@ Production & staging environments
 
 *YousignApi* accepts 2 parameters:
 
-- *$token* is the bearer token
-- *$production* boolean value.
-    - false is the default value, staging environment. Requests are sent
-      to https://staging-api.yousign.com/
-    - true, production environment. Requests are sent to
+- *string*  *$token* is the bearer token
+
+- *bool*    *$production*
+
+    - *false* is the default value, for staging environment. Requests
+        are sent to https://staging-api.yousign.com/
+
+    - *true* for production environment. Requests are sent to
       https://api.yousign.com/
 
 

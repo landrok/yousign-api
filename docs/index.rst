@@ -27,7 +27,7 @@ As all features are implemented, it aims to be a full-featured client.
     $users = $yousign->getUsers();
 
     foreach ($users as $user) {
-        echo PHP_EOL . $user->getId();
+        echo $user->getId();
     }
 
 

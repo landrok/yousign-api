@@ -29,7 +29,7 @@ In this example, we will get all users in staging mode.
 
 *$users* contains an iterable *UserCollection* object.
 
-All API responses are converted into objects.
+All API responses are converted into objects (See `api_reference`).
 
 All of them offer *toArray()*, *toJson()* methods and getters to
 access their properties.
