@@ -2,21 +2,8 @@
 Quickstart
 ==========
 
-This page provides requirements, install advises and short examples on
-how to make a first call and retrieve your data.
-
-Requirements
-============
-
-- PHP 7.1+
-- You have to create your account on `Yousign platform <https://staging-auth.yousign.com/pre-signup>`_ to get an API token before using this library.
-
-Install
-=======
-
-.. code-block:: console
-
-    composer require landrok/yousign-api
+This page provides short examples on how to make your first call and
+retrieve your data.
 
 
 Making your first call

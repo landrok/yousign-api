@@ -9,18 +9,27 @@ Yousign API client Documentation
 **Yousign API client** is a wrapper for the Yousign API v2 in PHP.
 
 Its purpose is to use this API without having to write the HTTP calls
-yourself and to retrieve returned data through an object model.
+yourself and to retrieve the returned data through an object model.
 
-If you still want to make HTTP calls to check the API responses, this is
-possible thanks to the low-level calls.
+As all features are implemented, it aims to be a full-featured client.
 
-It provides an API wrapper (*Yousign\\YousignApi*) and some shortcut
-methods for basic and advanced modes.
+.. code-block:: php
 
-As all features are implemented ,it aims to be a full-featured client.
+    use Yousign\YousignApi;
 
-All API calls are wrapped into an object model and all subsequent types
-(Member, Procedure, File, FileObject, etc...) are implemented too.
+    /*
+     * token
+     */
+    $token = '123456789';
+
+    $yousign = new YousignApi($token);
+
+    $users = $yousign->getUsers();
+
+    foreach ($users as $user) {
+        echo PHP_EOL . $user->getId();
+    }
+
 
 User Guide
 ==========
@@ -28,28 +37,13 @@ User Guide
 .. toctree::
     :maxdepth: 3
 
+    overview
     quickstart
     basic-mode
     advanced-mode
     advanced-features
 
 ________________________________________________________________________
-
-
-More
-----
-
-- `Contribute on Github <https://github.com/landrok/yousign-api>`_
-
-- To discuss new features, make feedback or simply to share ideas, you
-  can contact me on Mastodon at
-  `https://cybre.space/@landrok <https://cybre.space/@landrok>`_
-
-- Create an account and an API token on
-  `Yousign Sandbox sign-up <https://staging-auth.yousign.com/pre-signup>`_
-
-- `Official API manual <https://dev.yousign.com/?version=latest>`_
-
 
 .. |build-status| image:: https://api.travis-ci.org/landrok/yousign-api.svg?branch=master
     :alt: Build status

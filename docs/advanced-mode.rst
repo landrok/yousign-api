@@ -1,3 +1,5 @@
+.. _advanced_mode_tutorial:
+
 =============
 Advanced mode
 =============
