@@ -2,7 +2,7 @@
 layout: default
 ---
 
-[![Build Status](https://api.travis-ci.org/landrok/yousign-api.svg?branch=master)](https://travis-ci.org/landrok/yousign-api)
+[![Build Status](https://api.travis-ci.com/landrok/yousign-api.svg?branch=master)](https://travis-ci.com/landrok/yousign-api)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/cad81750c32c5346ac6b/test_coverage)](https://codeclimate.com/github/landrok/yousign-api/test_coverage)
 
 **Yousign API client** is a wrapper for the Yousign API v2 in PHP.

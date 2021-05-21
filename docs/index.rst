@@ -46,9 +46,9 @@ User Guide
 
 ________________________________________________________________________
 
-.. |build-status| image:: https://api.travis-ci.org/landrok/yousign-api.svg?branch=master
+.. |build-status| image:: https://api.travis-ci.com/landrok/yousign-api.svg?branch=master
     :alt: Build status
-    :target: https://travis-ci.org/landrok/yousign-api
+    :target: https://travis-ci.com/landrok/yousign-api
 
 .. |coverage| image:: https://api.codeclimate.com/v1/badges/cad81750c32c5346ac6b/test_coverage
     :alt: Test coverage
