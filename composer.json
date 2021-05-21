@@ -7,7 +7,7 @@
     "homepage": "https://github.com/landrok/yousign-api",
     "license": "MIT",
     "require": {
-        "php": "^7.1",
+        "php": "^7.1|^8.0",
         "guzzlehttp/guzzle": "^6.3"
     },
     "require-dev": {
