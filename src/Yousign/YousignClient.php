@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yousign;
 
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7;
 use Psr\Http\Message\ResponseInterface;
 
@@ -22,7 +23,7 @@ use Psr\Http\Message\ResponseInterface;
  * $yousign = new YousignClient('{token}', $production = false);
  * echo $yousign->get('/users')->getBody(); // JSON response
  */
-class YousignClient
+final class YousignClient
 {
     /**
      * Client options
@@ -34,7 +35,7 @@ class YousignClient
     /**
      * Authenticated HTTP client for Yousign API
      *
-     * @var null|\GuzzleHttp\Client
+     * @var \GuzzleHttp\Client|null
      */
     private $client;
 
@@ -44,15 +45,15 @@ class YousignClient
     public function __construct(string $token, bool $production = false)
     {
         $this->options = [
-            'base_uri'        => $production
-                ? "https://api.yousign.com"
-                : "https://staging-api.yousign.com",
-            'headers'         => [
+            'base_uri' => $production
+                ? 'https://api.yousign.com'
+                : 'https://staging-api.yousign.com',
+            'headers' => [
                 'Authorization' => 'Bearer ' . $token,
                 'Content-Type'  => 'application/json',
             ],
             'connect_timeout' => 30,
-            'cookies'         => true,
+            'cookies' => true,
         ];
     }
 
@@ -60,7 +61,6 @@ class YousignClient
      * Set or override Guzzle client options
      *
      * @param  array $options
-     * @return self
      */
     public function setOptions(array $options): self
     {
@@ -74,8 +74,6 @@ class YousignClient
 
     /**
      * Authenticated HTTP client for Yousign API
-     *
-     * @return \GuzzleHttp\Client
      */
     public function getClient(): Client
     {
@@ -88,8 +86,6 @@ class YousignClient
 
     /**
      * HTTP GET wrapper
-     *
-     * @return \Psr\Http\Message\ResponseInterface
      */
     public function get(string $uri, array $params = []): ResponseInterface
     {
@@ -98,8 +94,6 @@ class YousignClient
 
     /**
      * HTTP POST wrapper
-     *
-     * @return \Psr\Http\Message\ResponseInterface
      */
     public function post(string $uri, array $params): ResponseInterface
     {
@@ -108,8 +102,6 @@ class YousignClient
 
     /**
      * HTTP PUT wrapper
-     *
-     * @return \Psr\Http\Message\ResponseInterface
      */
     public function put(string $uri, array $params): ResponseInterface
     {
@@ -125,17 +117,17 @@ class YousignClient
     {
         try {
             return $this->getClient()->$method($uri, $params);
-        } catch (RequestException $e) {
+        } catch (RequestException $exception) {
             $message = sprintf(
                 "%s\n%s\n",
-                $e->getMessage(),
-                Psr7\str($e->getRequest())
+                $exception->getMessage(),
+                Psr7\str($exception->getRequest())
             );
-            if ($e->hasResponse()) {
-                $message .= "\n" . Psr7\str($e->getResponse());
+            if ($exception->hasResponse()) {
+                $message .= "\n" . Psr7\str($exception->getResponse());
             }
-        } catch (Exception $e) {
-            $message = $e->getMessage();
+        } catch (Exception $exception) {
+            $message = $exception->getMessage();
         }
 
         throw new Exception($message);

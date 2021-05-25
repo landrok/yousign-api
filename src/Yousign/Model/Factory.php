@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Yousign package.
  *
@@ -10,8 +12,6 @@
  */
 
 namespace Yousign\Model;
-
-use Exception;
 
 /**
  * \Yousign\Factory is a factory for all models. It does not send HTTP
@@ -25,7 +25,6 @@ abstract class Factory
      * Factory method to create a File model
      *
      * @param  array $attributes
-     * @return \Yousign\Model\File
      */
     public static function createFile(array $attributes = []): File
     {
@@ -42,7 +41,6 @@ abstract class Factory
      * Factory method to create a FileCollection model
      *
      * @param  array $items
-     * @return \Yousign\Model\FileCollection
      */
     public static function createFileCollection(array $items = []): FileCollection
     {
@@ -61,7 +59,6 @@ abstract class Factory
      * Factory method to create a FileObject model
      *
      * @param  array $attributes
-     * @return \Yousign\Model\FileObject
      */
     public static function createFileObject(array $attributes = []): FileObject
     {
@@ -78,7 +75,6 @@ abstract class Factory
      * Factory method to create a FileObjectCollection model
      *
      * @param  array $items
-     * @return \Yousign\Model\FileObjectCollection
      */
     public static function createFileObjectCollection(array $items = []): FileObjectCollection
     {
@@ -97,7 +93,6 @@ abstract class Factory
      * Factory method to create a Member model
      *
      * @param  array $attributes
-     * @return \Yousign\Model\Member
      */
     public static function createMember(array $attributes = []): Member
     {
@@ -114,7 +109,6 @@ abstract class Factory
      * Factory method to create a MemberCollection model
      *
      * @param  array $items
-     * @return \Yousign\Model\MemberCollection
      */
     public static function createMemberCollection(array $items = []): MemberCollection
     {
@@ -133,7 +127,6 @@ abstract class Factory
      * Factory method to create a Procedure model
      *
      * @param  array $attributes
-     * @return \Yousign\Model\Procedure
      */
     public static function createProcedure(array $attributes = []): Procedure
     {
@@ -150,7 +143,6 @@ abstract class Factory
      * Factory method to create a User model
      *
      * @param  array $attributes
-     * @return \Yousign\Model\User
      */
     public static function createUser(array $attributes = []): User
     {
@@ -167,7 +159,6 @@ abstract class Factory
      * Factory method to create a UserCollection model
      *
      * @param  array $items
-     * @return \Yousign\Model\UserCollection
      */
     public static function createUserCollection(array $items = []): UserCollection
     {
@@ -186,7 +177,6 @@ abstract class Factory
      * Factory method to create a Workspace model
      *
      * @param  array $attributes
-     * @return \Yousign\Model\Workspace
      */
     public static function createWorkspace(array $attributes = []): Workspace
     {
@@ -203,7 +193,6 @@ abstract class Factory
      * Factory method to create a WorkspaceCollection model
      *
      * @param  array $items
-     * @return \Yousign\Model\WorkspaceCollection
      */
     public static function createWorkspaceCollection(array $items = []): WorkspaceCollection
     {
@@ -222,7 +211,6 @@ abstract class Factory
      * Factory method to create a Group model
      *
      * @param  array $attributes
-     * @return \Yousign\Model\Group
      */
     public static function createGroup(array $attributes = []): Group
     {
@@ -239,7 +227,6 @@ abstract class Factory
      * Factory method to create a Permission model
      *
      * @param  array $attributes
-     * @return \Yousign\Model\Permission
      */
     public static function createPermission(array $attributes = []): Permission
     {
@@ -255,8 +242,7 @@ abstract class Factory
     /**
      * Factory method to create a PermissionCollection model
      *
-     * @param  string[] $items
-     * @return \Yousign\Model\PermissionCollection
+     * @param  array<string> $items
      */
     public static function createPermissionCollection(array $items = []): PermissionCollection
     {
@@ -277,7 +263,6 @@ abstract class Factory
      * Factory method to create a Notifications model
      *
      * @param  array $attributes
-     * @return \Yousign\Model\Notifications
      */
     public static function createNotifications(array $attributes = []): Notifications
     {

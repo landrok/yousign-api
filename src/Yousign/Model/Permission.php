@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Yousign package.
  *
@@ -15,4 +17,5 @@ namespace Yousign\Model;
  * \Yousign\Model\Permission handles permission data
  */
 class Permission extends AbstractModel
-{}
+{
+}

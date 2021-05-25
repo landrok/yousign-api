@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Yousign package.
  *
@@ -34,11 +36,8 @@ abstract class TypeResolver
 
     /**
      * Check that a type exists
-     *
-     * @param  string $name
-     * @return bool
      */
-    public static function exists(string $name)
+    public static function exists(string $name): bool
     {
         return array_key_exists(
             $name,
@@ -48,9 +47,6 @@ abstract class TypeResolver
 
     /**
      * Get factory method name
-     *
-     * @param  string $name
-     * @return string
      */
     public static function getFactoryMethod(string $name): string
     {

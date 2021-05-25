@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the YousignApi package.
  *
@@ -73,11 +75,9 @@ abstract class AbstractModelCollection implements IteratorAggregate
     /**
      * Overloading methods
      *
-     * @param  string $name
-     * @param  array  $arguments
      * @return mixed
      */
-    public function __call($name, $arguments)
+    public function __call(string $name, array $arguments = [])
     {
         if (method_exists($this->stack, $name)) {
             return $this->stack->$name(...$arguments);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yousign\Process;
 
 use Exception;
@@ -34,7 +36,8 @@ class BasicProcess extends AbstractProcess
         $this->checkProcedureBeforeBuilding();
 
         // --- Build and post file
-        for ($i = 0; $i < $this->files->count(); $i++) {
+        $count = $this->files->count();
+        for ($i = 0; $i < $count; $i++) {
             $file = $this->files->offsetGet($i);
 
             // File is given with a base64 content
@@ -72,14 +75,14 @@ class BasicProcess extends AbstractProcess
     protected function checkFilesBeforeBuilding(): void
     {
         // --- At least one file has been added
-        if (!$this->files->count()) {
+        if (! $this->files->count()) {
             throw new Exception(
-                "There must be at least one file to execute a procedure."
+                'There must be at least one file to execute a procedure.'
             );
         }
 
         foreach ($this->files as $file) {
-            if (!$file->has('name')) {
+            if (! $file->has('name')) {
                 throw new Exception(
                     "Given file must have a 'name' attribute."
                 );
@@ -95,9 +98,9 @@ class BasicProcess extends AbstractProcess
      */
     protected function checkProcedureBeforeBuilding(): void
     {
-        if (!$this->procedure->has('members')) {
+        if (! $this->procedure->has('members')) {
             throw new Exception(
-                "There must be at least one member to execute a procedure."
+                'There must be at least one member to execute a procedure.'
             );
         }
     }

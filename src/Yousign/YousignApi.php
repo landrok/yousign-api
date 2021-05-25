@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yousign;
 
 use Yousign\Model\Factory;
@@ -23,7 +25,7 @@ use Yousign\Process\BasicProcess;
  * $yousign = new YousignApi($token, $production = false);
  * print_r( $yousign->getUsers() ); // Return a UserCollection model
  */
-class YousignApi
+final class YousignApi
 {
     /**
      * Authenticated HTTP client for Yousign API
@@ -40,8 +42,6 @@ class YousignApi
     /**
      * A shortcut for integration tests
      * It helps configuring low-level client options
-     *
-     * @return self
      */
     public function setClientOptions(array $options): self
     {
@@ -52,8 +52,6 @@ class YousignApi
 
     /**
      * Post a file to the API
-     *
-     * @return \Yousign\Model\File
      */
     public function postFile(array $file): File
     {
@@ -64,14 +62,12 @@ class YousignApi
         );
 
         return Factory::createFile(
-            json_decode($response->getBody(), true)
+            json_decode((string) $response->getBody(), true)
         );
     }
 
     /**
      * Post a procedure to the API
-     *
-     * @return \Yousign\Model\Procedure
      */
     public function postProcedure(array $procedure): Procedure
     {
@@ -82,14 +78,12 @@ class YousignApi
         );
 
         return Factory::createProcedure(
-            json_decode($response->getBody(), true)
+            json_decode((string) $response->getBody(), true)
         );
     }
 
     /**
      * Put a procedure to the API
-     *
-     * @return \Yousign\Model\Procedure
      */
     public function putProcedure(string $id, array $procedure): Procedure
     {
@@ -100,14 +94,12 @@ class YousignApi
         );
 
         return Factory::createProcedure(
-            json_decode($response->getBody(), true)
+            json_decode((string) $response->getBody(), true)
         );
     }
 
     /**
      * Post a member to the API
-     *
-     * @return \Yousign\Model\Member
      */
     public function postMember(array $member): Member
     {
@@ -118,14 +110,12 @@ class YousignApi
         );
 
         return Factory::createMember(
-            json_decode($response->getBody(), true)
+            json_decode((string) $response->getBody(), true)
         );
     }
 
     /**
      * Post a file object to the API
-     *
-     * @return \Yousign\Model\FileObject
      */
     public function postFileObject(array $fileObject): FileObject
     {
@@ -136,14 +126,13 @@ class YousignApi
         );
 
         return Factory::createFileObject(
-            json_decode($response->getBody(), true)
+            json_decode((string) $response->getBody(), true)
         );
     }
 
     /**
      * Get all users
      *
-     * @return \Yousign\Model\UserCollection
      * @throws \Exception When HTTP client receive an error (4xx or 5xx)
      */
     public function getUsers(): UserCollection
@@ -151,14 +140,12 @@ class YousignApi
         $response = $this->client->get('/users');
 
         return Factory::createUserCollection(
-            json_decode($response->getBody(), true)
+            json_decode((string) $response->getBody(), true)
         );
     }
 
     /**
      * Create an user
-     *
-     * @return \Yousign\Model\User
      */
     public function postUser(array $user): User
     {
@@ -169,7 +156,7 @@ class YousignApi
         );
 
         return Factory::createUser(
-            json_decode($response->getBody(), true)
+            json_decode((string) $response->getBody(), true)
         );
     }
 

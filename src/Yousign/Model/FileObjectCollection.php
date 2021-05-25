@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the YousignApi package.
  *
@@ -16,4 +18,5 @@ namespace Yousign\Model;
  * data
  */
 class FileObjectCollection extends AbstractModelCollection
-{}
+{
+}

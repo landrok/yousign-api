@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Yousign package.
  *
@@ -113,4 +115,5 @@ namespace Yousign\Model;
         ];
  */
 class Procedure extends AbstractModel
-{}
+{
+}

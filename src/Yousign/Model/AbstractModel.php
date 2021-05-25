@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the YousignApi package.
  *
@@ -26,9 +28,7 @@ abstract class AbstractModel
     /**
      * Standard setter method
      *
-     * @param  string $name
      * @param  mixed  $value
-     * @return $this
      */
     public function set(string $name, $value): self
     {
@@ -56,10 +56,9 @@ abstract class AbstractModel
     /**
      * Standard getter method
      *
-     * @param  string $name
      * @return mixed
      */
-    public function get($name)
+    public function get(string $name)
     {
         return $this->has($name)
             ? $this->properties[$name]
@@ -69,7 +68,6 @@ abstract class AbstractModel
     /**
      * Checks that property exists
      *
-     * @param  string $name
      * @return bool
      */
     public function has(string $name): bool
@@ -86,7 +84,7 @@ abstract class AbstractModel
     public function toArray(): array
     {
         return array_map(
-            function($value) {
+            static function($value) {
                 return $value instanceof AbstractModel
                     || $value instanceof AbstractModelCollection
                     ? $value->toArray()
@@ -100,11 +98,10 @@ abstract class AbstractModel
      * Get a JSON
      *
      * @param  int     $options PHP JSON options
-     * @return string
      */
     public function toJson(int $options = 0): string
     {
-        return (string)json_encode(
+        return (string) json_encode(
             $this->toArray(),
             $options
         );
@@ -112,11 +109,8 @@ abstract class AbstractModel
 
     /**
      * Magical isset method
-     *
-     * @param string $name
-     * @return bool
      */
-    public function __isset(string $name)
+    public function __isset(string $name): bool
     {
         return isset($this->properties[$name])
             || array_key_exists($name, $this->properties);
@@ -125,7 +119,6 @@ abstract class AbstractModel
     /**
      * Magical getter method
      *
-     * @param string $name
      * @return mixed
      */
     public function __get(string $name)
@@ -136,8 +129,6 @@ abstract class AbstractModel
     /**
      * Overloading methods
      *
-     * @param  string $name
-     * @param  array  $arguments
      * @return mixed
      * @throws \Exception when a called method is not defined
      */

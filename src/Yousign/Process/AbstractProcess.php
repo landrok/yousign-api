@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yousign\Process;
 
-use Exception;
 use Yousign\Model\Factory;
 use Yousign\Model\FileCollection;
 use Yousign\Model\Procedure;
@@ -43,8 +44,6 @@ abstract class AbstractProcess
 
     /**
      * Add one file to the process
-     *
-     * @return self
      */
     public function addFile(array $file): self
     {
@@ -57,8 +56,6 @@ abstract class AbstractProcess
 
     /**
      * Add the procedure to the process
-     *
-     * @return self
      */
     public function setProcedure(array $procedure): self
     {
@@ -70,8 +67,6 @@ abstract class AbstractProcess
     /**
      * Get the initial procedure before calling the API
      *  or the final result when API has been called with success
-     *
-     * @return \Yousign\Model\Procedure
      */
     public function getProcedure(): Procedure
     {
@@ -81,8 +76,6 @@ abstract class AbstractProcess
     /**
      * Get the initial files before calling the API
      *  or the final results when API has been called with success
-     *
-     * @return \Yousign\Model\FileCollection
      */
     public function getFiles(): FileCollection
     {
