@@ -130,6 +130,18 @@ final class YousignApi
         );
     }
 
+    public function postSignatureUi(array $signatureUi) {
+        $response = $this->client->post(
+            '/signature_uis', [
+                'body' => json_encode($signatureUi)
+            ]
+        );
+
+        return Factory::createSignatureUi(
+            json_decode((string) $response->getBody(), true)
+        );
+    }
+
     /**
      * Get all users
      *
@@ -166,5 +178,12 @@ final class YousignApi
     public function basic(): BasicProcess
     {
         return new BasicProcess($this);
+    }
+
+    /**
+     * @return YousignClient
+     */
+    public function getYousignClient(): YousignClient {
+        return $this->client;
     }
 }
