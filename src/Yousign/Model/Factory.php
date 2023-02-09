@@ -280,7 +280,7 @@ abstract class Factory
      *
      * @param array $attributes
      */
-    public static function createSignatureUI(array $attributes = []): SignatureUi
+    public static function createSignatureUi(array $attributes = []): SignatureUi
     {
         $item = new SignatureUi();
 
