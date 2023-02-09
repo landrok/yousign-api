@@ -9,6 +9,7 @@ use Yousign\Model\File;
 use Yousign\Model\FileObject;
 use Yousign\Model\Member;
 use Yousign\Model\Procedure;
+use Yousign\Model\SignatureUi;
 use Yousign\Model\User;
 use Yousign\Model\UserCollection;
 use Yousign\Process\BasicProcess;
@@ -130,7 +131,11 @@ final class YousignApi
         );
     }
 
-    public function postSignatureUi(array $signatureUi) {
+    /**
+     * Create template for Signature-UI with the API
+     */
+    public function postSignatureUi(array $signatureUi): SignatureUi
+    {
         $response = $this->client->post(
             '/signature_uis', [
                 'body' => json_encode($signatureUi)
