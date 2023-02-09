@@ -236,7 +236,8 @@ abstract class DataHelper
         ];
     }
 
-    public static function getFakeCreatedUi() {
+    public static function getFakeCreatedUi(): array
+    {
         return [
             "id"                      => "/signature_uis/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
             "name"                    => "My first template for Signature-UI",
