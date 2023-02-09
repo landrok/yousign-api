@@ -9,6 +9,7 @@ use Yousign\Model\File;
 use Yousign\Model\FileObject;
 use Yousign\Model\Member;
 use Yousign\Model\Procedure;
+use Yousign\Model\SignatureUi;
 use Yousign\Model\User;
 use Yousign\Model\UserCollection;
 use Yousign\Process\BasicProcess;
@@ -131,6 +132,22 @@ final class YousignApi
     }
 
     /**
+     * Create template for Signature-UI with the API
+     */
+    public function postSignatureUi(array $signatureUi): SignatureUi
+    {
+        $response = $this->client->post(
+            '/signature_uis', [
+                'body' => json_encode($signatureUi)
+            ]
+        );
+
+        return Factory::createSignatureUi(
+            json_decode((string) $response->getBody(), true)
+        );
+    }
+
+    /**
      * Get all users
      *
      * @throws \Exception When HTTP client receive an error (4xx or 5xx)
@@ -166,5 +183,12 @@ final class YousignApi
     public function basic(): BasicProcess
     {
         return new BasicProcess($this);
+    }
+
+    /**
+     * @return YousignClient
+     */
+    public function getYousignClient(): YousignClient {
+        return $this->client;
     }
 }

@@ -274,4 +274,20 @@ abstract class Factory
 
         return $item;
     }
+
+    /**
+     * Factory method to create a SignatureUi model
+     *
+     * @param array $attributes
+     */
+    public static function createSignatureUi(array $attributes = []): SignatureUi
+    {
+        $item = new SignatureUi();
+
+        foreach ($attributes as $attribute => $value) {
+            $item->set($attribute, $value);
+        }
+
+        return $item;
+    }
 }
