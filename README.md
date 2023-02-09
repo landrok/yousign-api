@@ -32,6 +32,7 @@ Table of contents
 - [Quick start](#quick-start)
 - [Basic mode](#basic-mode)
 - [Advanced mode](#advanced-mode)
+- [Branding with signature UI](#branding-with-signature-ui)
 
 ________________________________________________________________________
 
@@ -392,6 +393,169 @@ echo $procedure->toJson(JSON_PRETTY_PRINT);
 In step 3, you may add several members.
 
 In step 4, you may add one or more signature images for each one.
+
+________________________________________________________________________
+
+Branding with signature UI
+--------------------------
+
+By default, Signature-UI has the Yousign theme (logo, colors, ...) but
+you can customize the signature flow embedded in the iFrame from
+Signature-UI view located in the Admin menu of the app or entirely
+customize this iFrame by using a specific resource `/signature_uis`.
+
+
+```php
+use Yousign\YousignApi;
+
+/*
+ * Token
+ */
+$token = '123456789';
+
+/*
+ * Production mode
+ */
+$production = false;
+
+/*
+ * Instanciate API wrapper
+ */
+$yousign = new YousignApi($token, $production);
+
+/*
+ * Create your customized UI
+ */
+$ui = $yousign->postSignatureUi([
+    "name"                    => "My first template for Signature-UI",
+    "description"             => "Here is the Signature-UI template for Yousign Developers.",
+    "defaultZoom"             => 100,
+    "logo"                    => "data:image/png;base64,iVBORw0K [...] XIwU3i6foIAAAAAElFTkSuQmCC",
+    "languages"               => ["fr", "en"],
+    "defaultLanguage"         => "en",
+    "labels"                  => [
+        [
+            "name"      => "NAME OF THE LABEL",
+            "languages" => [
+                "en" => "Label en",
+                "fr" => "Label fr"
+            ],
+            "creator"   => null,
+        ]
+    ],
+    "signImageTypesAvailable" => [
+        "name",
+        "draw",
+    ],
+    "enableHeaderBar"         => true,
+    "enableHeaderBarSignAs"   => true,
+    "enableSidebar"           => true,
+    "enableMemberList"        => true,
+    "enableDocumentList"      => true,
+    "enableDocumentDownload"  => true,
+    "enableActivities"        => false,
+    "authenticationPopup"     => false,
+    "enableRefuseComment"     => true,
+    "fonts"                   => ["Roboto", "Lato"],
+    "creator"                 => null,
+    "redirectCancel"          => [
+        "url"    => "https://example.com?cancel=1",
+        "target" => "_top",
+        "auto"   => false
+    ],
+    "redirectError"           => [
+        "url"    => "https://example.com?error=1",
+        "target" => "_blank",
+        "auto"   => true
+    ],
+    "redirectSuccess"           => [
+        "url"    => "https://example.com?success=1",
+        "target" => "_parent",
+        "auto"   => true
+    ],
+    "style"                   => "
+        .sign-ui-header-bar { background-color: #00f }
+        .sign-ui-headerbar-signas { background-color: #f00 }
+        .sign-ui-headerbar-signas--primary { background-color: #f00 }
+        .sign-ui-tab-item { color: #000 }
+        .sign-ui-tab-item--current { background-color: #0f0; color: #fff }
+    "
+]);
+```
+
+In the response below, you will get an id that will be useful to create
+your iFrame.
+
+
+```php
+[
+    "id"                      => "/signature_uis/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+    "name"                    => "My first template for Signature-UI",
+    "description"             => "Here is the Signature-UI template for Yousign Developers.",
+    "enableHeaderBar"         => true,
+    "enableHeaderBarSignAs"   => true,
+    "enableSidebar"           => true,
+    "enableMemberList"        => true,
+    "enableDocumentList"      => true,
+    "enableDocumentDownload"  => true,
+    "enableActivities"        => true,
+    "authenticationPopup"     => true,
+    "enableRefuseComment"     => true,
+    "defaultZoom"             => 100,
+    "logo"                    => "data:image/png;base64,iVBORw0K [...] XIwU3i6foIAAAAAElFTkSuQmCC",
+    "defaultLanguage"         => "en",
+    "signImageTypesAvailable" => [
+        "name",
+        "draw"
+    ],
+    "languages"               => [
+        "fr",
+        "en",
+        "es",
+        "de",
+        "it",
+        "pt",
+        "nl"
+    ],
+    "labels"                  => [
+        [
+            "id"        => "/signature_ui_labels/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+            "name"      => "NAME OF THE LABEL",
+            "languages" => [
+                "en" => "Label en",
+                "fr" => "Label fr"
+            ],
+            "creator"   => null,
+            "createdAt" => "2018-12-07T07:34:22+01:00",
+            "updatedAt" => "2018-12-07T07:34:22+01:00"
+        ]
+    ],
+    "fonts"                   => [
+        "Roboto",
+        "Lato"
+    ],
+    "style"                   => "Just a CSS string for customize all of our iFrame.",
+    "redirectCancel"          => [
+        "url"    => "https://example.com?cancel=1",
+        "target" => "_top",
+        "auto"   => false
+    ],
+    "redirectError"           => [
+        "url"    => "https://example.com?error=1",
+        "target" => "_blank",
+        "auto"   => true
+    ],
+    "redirectSuccess"           => [
+        "url"    => "https://example.com?success=1",
+        "target" => "_parent",
+        "auto"   => true
+    ],
+    "workspace"               => "/workspaces/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+    "creator"                 => null,
+    "createdAt"               => "2018-12-07T07:34:22+01:00",
+    "updatedAt"               => "2018-12-07T07:34:22+01:00"
+]
+```
 
 ________________________________________________________________________
 
