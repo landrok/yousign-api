@@ -6,8 +6,8 @@ namespace Yousign;
 
 use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Message;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7;
 use Psr\Http\Message\ResponseInterface;
 
 /*
@@ -121,10 +121,10 @@ final class YousignClient
             $message = sprintf(
                 "%s\n%s\n",
                 $exception->getMessage(),
-                Psr7\str($exception->getRequest())
+                Message::toString($exception->getRequest())
             );
             if ($exception->hasResponse()) {
-                $message .= "\n" . Psr7\str($exception->getResponse());
+                $message .= "\n" . Message::toString($exception->getResponse());
             }
         } catch (Exception $exception) {
             $message = $exception->getMessage();
