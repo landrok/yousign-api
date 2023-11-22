@@ -11,11 +11,13 @@ declare(strict_types=1);
  * <https://github.com/landrok/yousign-api/blob/master/LICENSE>.
  */
 
-namespace Yousign\Model;
+namespace Yousign\Model\V2;
+
+use Yousign\Model\AbstractModel;
 
 /**
- * \Yousign\Model\Permission handles permission data
+ * User handles user data
  */
-class Permission extends AbstractModel
+class User extends AbstractModel
 {
 }

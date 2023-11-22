@@ -1,13 +1,13 @@
 <?php
 
-namespace YousignTest\Integration\AdvancedFeatures;
+namespace YousignTest\V2\Integration\AdvancedFeatures;
 
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use YousignTest\DataHelper;
-use Yousign\YousignApi;
+use Yousign\Api\V2\YousignApi;
+use YousignTest\V2\Fake\Model\FakeUser;
 
 class CreateUserTest extends TestCase
 {
@@ -18,7 +18,7 @@ class CreateUserTest extends TestCase
     {
         // Create a mock handler
         $mock = new MockHandler([
-            new Response(201, [], json_encode(DataHelper::getFakeCreatedUser()), true)
+            new Response(201, [], json_encode(FakeUser::getProperties()), true)
         ]);
 
         $handlerStack = HandlerStack::create($mock);
@@ -39,7 +39,7 @@ class CreateUserTest extends TestCase
         ]);
 
         $this->assertEquals(
-            DataHelper::getFakeCreatedUser(),
+            FakeUser::getProperties(),
             $user->toArray()
         );
     }

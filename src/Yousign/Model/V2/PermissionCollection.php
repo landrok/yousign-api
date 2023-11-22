@@ -11,10 +11,12 @@ declare(strict_types=1);
  * <https://github.com/landrok/yousign-api/blob/master/LICENSE>.
  */
 
-namespace Yousign\Model;
+namespace Yousign\Model\V2;
+
+use Yousign\Model\AbstractModelCollection;
 
 /**
- * \Yousign\Model\PermissionCollection handles a pool of permission data
+ * PermissionCollection handles a pool of permission data
  */
 class PermissionCollection extends AbstractModelCollection
 {

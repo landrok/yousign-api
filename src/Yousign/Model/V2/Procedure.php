@@ -11,10 +11,12 @@ declare(strict_types=1);
  * <https://github.com/landrok/yousign-api/blob/master/LICENSE>.
  */
 
-namespace Yousign\Model;
+namespace Yousign\Model\V2;
+
+use Yousign\Model\AbstractModel;
 
 /**
- * \Yousign\Model\Procedure handles procedure data
+ * Procedure handles procedure data
  *
  * @property string $id                 Ex: /procedures/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
  * @property string $description

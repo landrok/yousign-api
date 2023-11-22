@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Yousign package.
+ * This file is part of the YousignApi package.
  *
  * Copyright (c) landrok at github.com/landrok
  *
@@ -11,11 +11,13 @@ declare(strict_types=1);
  * <https://github.com/landrok/yousign-api/blob/master/LICENSE>.
  */
 
-namespace Yousign\Model;
+namespace Yousign\Model\V2;
+
+use Yousign\Model\AbstractModelCollection;
 
 /**
- * \Yousign\Model\Workspace handles user data
+ * WorkspaceCollection handles a pool of workspace data
  */
-class Workspace extends AbstractModel
+class WorkspaceCollection extends AbstractModelCollection
 {
 }

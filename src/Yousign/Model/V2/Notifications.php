@@ -11,11 +11,13 @@ declare(strict_types=1);
  * <https://github.com/landrok/yousign-api/blob/master/LICENSE>.
  */
 
-namespace Yousign\Model;
+namespace Yousign\Model\V2;
+
+use Yousign\Model\AbstractModel;
 
 /**
- * \Yousign\Model\Group handles user group data
+ * Notifications handles notifications data
  */
-class Group extends AbstractModel
+class Notifications extends AbstractModel
 {
 }

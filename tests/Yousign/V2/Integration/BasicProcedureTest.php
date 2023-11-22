@@ -1,18 +1,14 @@
 <?php
 
-namespace YousignTest\Integration;
+namespace YousignTest\V2\Integration;
 
-use Exception;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Exception\ServerException;
-use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Psr7\Request;
 use PHPUnit\Framework\TestCase;
-use YousignTest\DataHelper;
-use Yousign\YousignApi;
+use Yousign\Api\V2\YousignApi;
+use YousignTest\V2\Fake\Model\FakeFile;
+use YousignTest\V2\Fake\Model\FakeProcedure;
 
 class BasicProcedureTest extends TestCase
 {
@@ -22,7 +18,7 @@ class BasicProcedureTest extends TestCase
      */
     public function testFailureOnMissingFile()
     {
-        $this->expectException(Exception::class);
+        $this->expectException(\Exception::class);
         $this->expectExceptionMessage(
             "There must be at least one file to execute a procedure."
         );
@@ -37,7 +33,7 @@ class BasicProcedureTest extends TestCase
      */
     public function testFailureOnMissingFileName()
     {
-        $this->expectException(Exception::class);
+        $this->expectException(\Exception::class);
         $this->expectExceptionMessage(
             "Given file must have a 'name' attribute."
         );
@@ -58,7 +54,7 @@ class BasicProcedureTest extends TestCase
      */
     public function testFailureOnMissingProcedureMember()
     {
-        $this->expectException(Exception::class);
+        $this->expectException(\Exception::class);
         $this->expectExceptionMessage(
             "There must be at least one member to execute a procedure."
         );
@@ -80,8 +76,8 @@ class BasicProcedureTest extends TestCase
     {
         // Create a mock handler
         $mock = new MockHandler([
-            new Response(201, [], json_encode(DataHelper::getFakeCreatedFile())),
-            new Response(201, [], json_encode(DataHelper::getFakeCreatedProcedure())),
+            new Response(201, [], json_encode(FakeFile::getProperties())),
+            new Response(201, [], json_encode(FakeProcedure::getProperties())),
         ]);
 
         $handlerStack = HandlerStack::create($mock);
@@ -119,13 +115,13 @@ class BasicProcedureTest extends TestCase
 
         // test files
         $this->assertEquals(
-            DataHelper::getFakeCreatedFile(),
+            FakeFile::getProperties(),
             $process->getFiles()->toArray()[0]
         );
 
         // test procedure
         $this->assertEquals(
-            DataHelper::getFakeCreatedProcedure(),
+            FakeProcedure::getProperties(),
             $process->getProcedure()->toArray()
         );
     }

@@ -1,18 +1,17 @@
 <?php
 
-namespace YousignTest\Integration;
+namespace YousignTest\V2\Integration;
 
-use Exception;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Exception\ServerException;
-use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Psr7\Request;
 use PHPUnit\Framework\TestCase;
-use YousignTest\AdvancedModeDataHelper;
-use Yousign\YousignApi;
+use Yousign\Api\V2\YousignApi;
+use YousignTest\V2\Fake\Model\FakeFileCreated;
+use YousignTest\V2\Fake\Model\FakeFileObject;
+use YousignTest\V2\Fake\Model\FakeMember;
+use YousignTest\V2\Fake\Model\FakeProcedureCreated;
+use YousignTest\V2\Fake\Model\FakeProcedureStarted;
 
 class AdvancedModeTest extends TestCase
 {
@@ -23,11 +22,11 @@ class AdvancedModeTest extends TestCase
     {
         // Create a mock handler
         $mock = new MockHandler([
-            new Response(201, [], json_encode(AdvancedModeDataHelper::getFakeNonStartedCreatedProcedure())),
-            new Response(201, [], json_encode(AdvancedModeDataHelper::getFakeCreatedFile())),
-            new Response(201, [], json_encode(AdvancedModeDataHelper::getFakeCreatedMember())),
-            new Response(201, [], json_encode(AdvancedModeDataHelper::getFakeCreatedFileObject())),
-            new Response(201, [], json_encode(AdvancedModeDataHelper::getFakeStartedProcedure())),
+            new Response(201, [], json_encode(FakeProcedureCreated::getProperties())),
+            new Response(201, [], json_encode(FakeFileCreated::getProperties())),
+            new Response(201, [], json_encode(FakeMember::getProperties())),
+            new Response(201, [], json_encode(FakeFileObject::getProperties())),
+            new Response(201, [], json_encode(FakeProcedureStarted::getProperties())),
         ]);
 
         $handlerStack = HandlerStack::create($mock);
@@ -49,7 +48,7 @@ class AdvancedModeTest extends TestCase
 
         // Test step 1
         $this->assertEquals(
-            AdvancedModeDataHelper::getFakeNonStartedCreatedProcedure(),
+            FakeProcedureCreated::getProperties(),
             $procedure->toArray()
         );
 
@@ -101,25 +100,25 @@ class AdvancedModeTest extends TestCase
 
         // test file
         $this->assertEquals(
-            AdvancedModeDataHelper::getFakeCreatedFile(),
+            FakeFileCreated::getProperties(),
             $file->toArray()
         );
 
         // test member
         $this->assertEquals(
-            AdvancedModeDataHelper::getFakeCreatedMember(),
+            FakeMember::getProperties(),
             $member->toArray()
         );
 
         // test file object
         $this->assertEquals(
-            AdvancedModeDataHelper::getFakeCreatedFileObject(),
+            FakeFileObject::getProperties(),
             $fileObject->toArray()
         );
 
         // test procedure after being started
         $this->assertEquals(
-            AdvancedModeDataHelper::getFakeStartedProcedure(),
+            FakeProcedureStarted::getProperties(),
             $procedure->toArray()
         );
     }

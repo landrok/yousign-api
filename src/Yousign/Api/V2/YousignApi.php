@@ -2,17 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Yousign;
+namespace Yousign\Api\V2;
 
-use Yousign\Model\Factory;
-use Yousign\Model\File;
-use Yousign\Model\FileObject;
-use Yousign\Model\Member;
-use Yousign\Model\Procedure;
-use Yousign\Model\SignatureUi;
-use Yousign\Model\User;
-use Yousign\Model\UserCollection;
-use Yousign\Process\BasicProcess;
+use Yousign\Api\AbstractApi;
+use Yousign\Model\V2\Factory;
+use Yousign\Model\V2\File;
+use Yousign\Model\V2\FileObject;
+use Yousign\Model\V2\Member;
+use Yousign\Model\V2\Procedure;
+use Yousign\Model\V2\SignatureUi;
+use Yousign\Model\V2\User;
+use Yousign\Model\V2\UserCollection;
+use Yousign\YousignClient;
 
 /*
  * API wrapper
@@ -26,29 +27,16 @@ use Yousign\Process\BasicProcess;
  * $yousign = new YousignApi($token, $production = false);
  * print_r( $yousign->getUsers() ); // Return a UserCollection model
  */
-final class YousignApi
+final class YousignApi extends AbstractApi
 {
     /**
      * Authenticated HTTP client for Yousign API
-     *
-     * @var \Yousign\YousignClient
      */
-    private $client;
+    public YousignClient $client;
 
     public function __construct(string $token, bool $production = false)
     {
-        $this->client = new YousignClient($token, $production);
-    }
-
-    /**
-     * A shortcut for integration tests
-     * It helps configuring low-level client options
-     */
-    public function setClientOptions(array $options): self
-    {
-        $this->client->setOptions($options);
-
-        return $this;
+        $this->client = new YousignClient($token, $production, YousignClient::API_VERSION_2);
     }
 
     /**
@@ -175,20 +163,5 @@ final class YousignApi
         return Factory::createUser(
             json_decode((string) $response->getBody(), true)
         );
-    }
-
-    /**
-     * Basic mode
-     */
-    public function basic(): BasicProcess
-    {
-        return new BasicProcess($this);
-    }
-
-    /**
-     * @return YousignClient
-     */
-    public function getYousignClient(): YousignClient {
-        return $this->client;
     }
 }

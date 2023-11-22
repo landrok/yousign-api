@@ -11,10 +11,12 @@ declare(strict_types=1);
  * <https://github.com/landrok/yousign-api/blob/master/LICENSE>.
  */
 
-namespace Yousign\Model;
+namespace Yousign\Model\V2;
+
+use Yousign\Model\AbstractModelCollection;
 
 /**
- * \Yousign\Model\FileObjectCollection handles a pool of file objects
+ * FileObjectCollection handles a pool of file objects
  * data
  */
 class FileObjectCollection extends AbstractModelCollection

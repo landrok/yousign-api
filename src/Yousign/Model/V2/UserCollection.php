@@ -11,15 +11,13 @@ declare(strict_types=1);
  * <https://github.com/landrok/yousign-api/blob/master/LICENSE>.
  */
 
-namespace Yousign\Model;
+namespace Yousign\Model\V2;
+
+use Yousign\Model\AbstractModelCollection;
 
 /**
- * \Yousign\Model\FileCollection handles a pool of files data
- *
- * @method int count()
- * @method mixed offsetGet(int $index)
- * @method mixed offsetSet(int $index, mixed $data)
+ * UserCollection handles a pool of user data
  */
-class FileCollection extends AbstractModelCollection
+class UserCollection extends AbstractModelCollection
 {
 }

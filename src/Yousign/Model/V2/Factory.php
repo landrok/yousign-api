@@ -11,10 +11,10 @@ declare(strict_types=1);
  * <https://github.com/landrok/activitypub/blob/master/LICENSE>.
  */
 
-namespace Yousign\Model;
+namespace Yousign\Model\V2;
 
 /**
- * \Yousign\Factory is a factory for all models. It does not send HTTP
+ * Factory is a factory for all V2 models. It does not send HTTP
  * requests to the API.
  *
  * It provides shortcuts methods for type instanciation and more.

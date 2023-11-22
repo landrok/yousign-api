@@ -13,21 +13,29 @@ declare(strict_types=1);
 
 namespace Yousign\Model;
 
-use Exception;
+use Yousign\Model\V2\Factory as V2Factory;
+use Yousign\Model\V3\Factory as V3Factory;
 use Yousign\Share\TypeResolver;
+use Yousign\YousignClient;
 
 abstract class AbstractModel
 {
     /**
      * Keep all properties values that have been set
      *
-     * @var array
+     * @var array<mixed>
      */
     private $properties = [];
+    
+    /**
+     * Set default version of Model to v2
+     */
+    protected string $version = YousignClient::API_VERSION_2;
 
     /**
      * Standard setter method
      *
+     * @param  string  $name
      * @param  mixed  $value
      */
     public function set(string $name, $value): self
@@ -40,14 +48,19 @@ abstract class AbstractModel
     /**
      * Affect a value to a property
      *
-     * @param  mixed $value
-     * @return mixed
+     * @param  string $name
+     * @return mixed $value
      */
     private function transform(string $name, $value)
     {
         if (is_array($value) && TypeResolver::exists($name)) {
             $method = TypeResolver::getFactoryMethod($name);
-            return Factory::$method($value);
+
+            if ($this->version === YousignClient::API_VERSION_3) {
+                return V3Factory::$method($value);
+            } else {
+                return V2Factory::$method($value);
+            }
         }
 
         return $value;
@@ -55,8 +68,6 @@ abstract class AbstractModel
 
     /**
      * Standard getter method
-     *
-     * @return mixed
      */
     public function get(string $name)
     {
@@ -67,8 +78,6 @@ abstract class AbstractModel
 
     /**
      * Checks that property exists
-     *
-     * @return bool
      */
     public function has(string $name): bool
     {
@@ -79,7 +88,7 @@ abstract class AbstractModel
      * Get a list of all properties and their values
      * as an associative array.
      *
-     * @return array
+     * @return array<mixed>
      */
     public function toArray(): array
     {
@@ -140,7 +149,7 @@ abstract class AbstractModel
             return $this->get($attr);
         }
 
-        throw new Exception(
+        throw new \Exception(
             sprintf('Method "%s" is not defined', $name)
         );
     }

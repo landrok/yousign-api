@@ -1,18 +1,17 @@
 <?php
 
-namespace YousignTest\Integration;
+namespace YousignTest\V2\Integration;
 
 use Exception;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use YousignTest\DataHelper;
-use Yousign\YousignApi;
+use Yousign\Api\V2\YousignApi;
+use YousignTest\V2\Fake\Model\FakeUser;
 
 class FirstCallTest extends TestCase
 {
@@ -23,7 +22,7 @@ class FirstCallTest extends TestCase
     {
         // Create a mock handler
         $mock = new MockHandler([
-            new Response(200, [], json_encode([DataHelper::getFakeUser()])),
+            new Response(200, [], json_encode([FakeUser::getProperties()])),
         ]);
 
         $handlerStack = HandlerStack::create($mock);
@@ -43,7 +42,7 @@ class FirstCallTest extends TestCase
 
         // Assert type
         $this->assertEquals(
-            [DataHelper::getFakeUser()],
+            [FakeUser::getProperties()],
             $users->toArray()
         );
     }
@@ -57,7 +56,7 @@ class FirstCallTest extends TestCase
 
         // Assert type
         $this->assertEquals(
-            [DataHelper::getFakeUser()],
+            [FakeUser::getProperties()],
             $users->toArray()
         );
     }
