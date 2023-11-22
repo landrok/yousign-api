@@ -35,19 +35,29 @@ final class YousignClient
     /**
      * Authenticated HTTP client for Yousign API
      *
-     * @var \GuzzleHttp\Client|null
+     * @var Client|null
      */
     private $client;
+
+    public const API_VERSION_2 = 'v2';
+    public const API_VERSION_3 = 'v3';
 
     /**
      * Prepare default configuration options for Guzzle client
      */
-    public function __construct(string $token, bool $production = false)
-    {
+    public function __construct(
+        string $token,
+        bool $production = false,
+        string $version = self::API_VERSION_2
+    ) {
+        if ($version === 'v3') {
+            $url = $production ? 'https://api.yousign.app/v3' : 'https://api-sandbox.yousign.app/v3';
+        } else {
+            $url = $production ? 'https://api.yousign.com' : 'https://staging-api.yousign.com';
+        }
+
         $this->options = [
-            'base_uri' => $production
-                ? 'https://api.yousign.com'
-                : 'https://staging-api.yousign.com',
+            'base_uri' => $url,
             'headers' => [
                 'Authorization' => 'Bearer ' . $token,
                 'Content-Type'  => 'application/json',

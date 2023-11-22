@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Yousign\Process;
 
 use Exception;
-use Yousign\YousignApi;
+use Yousign\Api\AbstractApi;
 
 /*
  * Basic process wrapper
@@ -22,7 +22,7 @@ use Yousign\YousignApi;
  */
 class BasicProcess extends AbstractProcess
 {
-    public function __construct(YousignApi $api)
+    public function __construct(AbstractApi $api)
     {
         parent::__construct($api);
     }

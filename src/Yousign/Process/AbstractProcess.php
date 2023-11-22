@@ -4,10 +4,16 @@ declare(strict_types=1);
 
 namespace Yousign\Process;
 
-use Yousign\Model\Factory;
-use Yousign\Model\FileCollection;
-use Yousign\Model\Procedure;
-use Yousign\YousignApi;
+use Yousign\Api\AbstractApi;
+use Yousign\Api\V2\YousignApi as V2YousignApi;
+use Yousign\Api\V3\YousignApi as V3YousignApi;
+use Yousign\Model\V2\Factory as V2Factory;
+use Yousign\Model\V3\Factory as V3Factory;
+use Yousign\Model\V2\FileCollection;
+use Yousign\Model\V2\Procedure;
+use Yousign\Model\V3\DocumentCollection;
+use Yousign\Model\V3\SignatureRequest;
+use Yousign\YousignClient;
 
 /*
  * Basic class for a process
@@ -16,39 +22,58 @@ abstract class AbstractProcess
 {
     /**
      * Yousign API wrapper
-     *
-     * @var \Yousign\YousignApi
      */
-    protected $api;
+    protected V2YousignApi|V3YousignApi $api;
 
     /**
-     * Files to send
-     *
-     * @var \Yousign\Model\FileCollection
+     * Files to send called
+     * Specific to API V2
      */
-    protected $files;
+    protected FileCollection $files;
+
+    /**
+     * Files to send called
+     * Specific to API V3
+     */
+    protected DocumentCollection $documents;
 
     /**
      * Procedure to send
-     *
-     * @var \Yousign\Model\Procedure
+     * Specific to API V2
      */
-    protected $procedure;
+    protected Procedure $procedure;
 
-    public function __construct(YousignApi $api)
-    {
+    /**
+     * Signature request to send
+     * Specific to API V3
+     */
+    protected SignatureRequest $signatureRequest;
+    
+    /**
+     * @param  AbstractApi $api
+     * @param  string $version
+     */
+    public function __construct(
+        AbstractApi $api,
+        string $version = YousignClient::API_VERSION_2
+    ) {
         $this->api = $api;
-        $this->files = Factory::createFileCollection();
-        $this->procedure = Factory::createProcedure([]);
+        if ($version === YousignClient::API_VERSION_3) {
+            $this->files = V3Factory::createDocumentCollection();
+            $this->procedure = V3Factory::createSignatureRequest([]);
+        } else {
+            $this->files = V2Factory::createFileCollection();
+            $this->procedure = V2Factory::createProcedure([]);
+        }
     }
 
     /**
      * Add one file to the process
      */
-    public function addFile(array $file): self
+    public function addFile(array $file): static
     {
         $this->files->add(
-            Factory::createFile($file)
+            V2Factory::createFile($file)
         );
 
         return $this;
@@ -57,9 +82,9 @@ abstract class AbstractProcess
     /**
      * Add the procedure to the process
      */
-    public function setProcedure(array $procedure): self
+    public function setProcedure(array $procedure): static
     {
-        $this->procedure = Factory::createProcedure($procedure);
+        $this->procedure = V2Factory::createProcedure($procedure);
 
         return $this;
     }
@@ -80,5 +105,45 @@ abstract class AbstractProcess
     public function getFiles(): FileCollection
     {
         return $this->files;
+    }
+
+    /**
+     * Add one document to the process
+     */
+    public function addDocument(array $document): static
+    {
+        $this->documents->add(
+            V3Factory::createDocument($document)
+        );
+
+        return $this;
+    }
+
+    /**
+     * Add the signature request to the process
+     */
+    public function setSignatureRequest(array $signatureRequest): static
+    {
+        $this->signatureRequest = V3Factory::createSignatureRequest($signatureRequest);
+
+        return $this;
+    }
+
+    /**
+     * Get the initial signature request before calling the API
+     *  or the final result when API has been called with success
+     */
+    public function getSignatureRequet(): SignatureRequest
+    {
+        return $this->signatureRequest;
+    }
+
+    /**
+     * Get the initial documents before calling the API
+     *  or the final results when API has been called with success
+     */
+    public function getDocuments(): DocumentCollection
+    {
+        return $this->documents;
     }
 }
