@@ -30,7 +30,7 @@ final class YousignApi extends AbstractApi
      *
      * @var \Yousign\YousignClient
      */
-    private $client;
+    protected $client;
 
     public function __construct(string $token, bool $production = false)
     {

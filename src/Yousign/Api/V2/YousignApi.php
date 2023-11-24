@@ -32,7 +32,7 @@ final class YousignApi extends AbstractApi
     /**
      * Authenticated HTTP client for Yousign API
      */
-    public YousignClient $client;
+    protected YousignClient $client;
 
     public function __construct(string $token, bool $production = false)
     {

@@ -21,7 +21,7 @@ abstract class AbstractApi
     /**
      * Authenticated HTTP client for Yousign API
      */
-    public YousignClient $client;
+    protected YousignClient $client;
 
     abstract public function __construct(string $token, bool $production);
 
