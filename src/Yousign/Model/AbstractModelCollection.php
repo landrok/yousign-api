@@ -13,27 +13,23 @@ declare(strict_types=1);
 
 namespace Yousign\Model;
 
-use Exception;
-use IteratorAggregate;
-use SplDoublyLinkedList;
+use Yousign\Model\AbstractModel;
 
 /*
  * @implements \IteratorAggregate<int, AbstractModel>
  *
  * @method int count()
  */
-abstract class AbstractModelCollection implements IteratorAggregate
+abstract class AbstractModelCollection implements \IteratorAggregate
 {
     /**
      * @var \SplDoublyLinkedList
-     *
-     * Internal stack
      */
-    protected $stack;
+    protected \SplDoublyLinkedList $stack;
 
     final public function __construct()
     {
-        $this->stack = new SplDoublyLinkedList();
+        $this->stack = new \SplDoublyLinkedList();
     }
 
     /**
@@ -45,11 +41,11 @@ abstract class AbstractModelCollection implements IteratorAggregate
 
         return $this;
     }
-
-    /*
-     * @return \SplStack<int, AbstractModel>
+    
+    /**
+     * @return \SplDoublyLinkedList
      */
-    public function getIterator(): SplDoublyLinkedList
+    public function getIterator(): \SplDoublyLinkedList
     {
         return $this->stack;
     }
@@ -58,7 +54,7 @@ abstract class AbstractModelCollection implements IteratorAggregate
      * Get a list of all properties and their values
      * as an associative array.
      *
-     * @return array
+     * @return array<mixed>
      */
     public function toArray(): array
     {
@@ -83,7 +79,7 @@ abstract class AbstractModelCollection implements IteratorAggregate
             return $this->stack->$name(...$arguments);
         }
 
-        throw new Exception(
+        throw new \Exception(
             sprintf('Method "%s" is not defined', $name)
         );
     }

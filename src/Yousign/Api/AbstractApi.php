@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Yousign\Api;
 
-use Yousign\Process\BasicProcess;
 use Yousign\YousignClient;
 
 abstract class AbstractApi
@@ -29,21 +28,13 @@ abstract class AbstractApi
      * A shortcut for integration tests
      * It helps configuring low-level client options
      * 
-     * @param  array<mixed>
+     * @param  array<mixed> $options
      */
     public function setClientOptions(array $options): static
     {
         $this->client->setOptions($options);
 
         return $this;
-    }
-
-    /**
-     * Basic mode
-     */
-    public function basic(): BasicProcess
-    {
-        return new BasicProcess($this);
     }
 
     public function getYousignClient(): YousignClient

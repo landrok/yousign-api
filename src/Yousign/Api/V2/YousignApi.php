@@ -13,6 +13,7 @@ use Yousign\Model\V2\Procedure;
 use Yousign\Model\V2\SignatureUi;
 use Yousign\Model\V2\User;
 use Yousign\Model\V2\UserCollection;
+use Yousign\Process\V2\BasicProcess;
 use Yousign\YousignClient;
 
 /*
@@ -163,5 +164,13 @@ final class YousignApi extends AbstractApi
         return Factory::createUser(
             json_decode((string) $response->getBody(), true)
         );
+    }
+
+    /**
+     * Basic mode
+     */
+    public function basic(): BasicProcess
+    {
+        return new BasicProcess($this);
     }
 }

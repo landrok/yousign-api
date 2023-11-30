@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Yousign\Process;
 
 use Yousign\Api\AbstractApi;
-use Yousign\Api\V2\YousignApi as V2YousignApi;
-use Yousign\Api\V3\YousignApi as V3YousignApi;
 use Yousign\Model\V2\Factory as V2Factory;
 use Yousign\Model\V3\Factory as V3Factory;
 use Yousign\Model\V2\FileCollection;
@@ -23,7 +21,7 @@ abstract class AbstractProcess
     /**
      * Yousign API wrapper
      */
-    protected V2YousignApi|V3YousignApi $api;
+    protected AbstractApi $api;
 
     /**
      * Files to send called
@@ -59,8 +57,8 @@ abstract class AbstractProcess
     ) {
         $this->api = $api;
         if ($version === YousignClient::API_VERSION_3) {
-            $this->files = V3Factory::createDocumentCollection();
-            $this->procedure = V3Factory::createSignatureRequest([]);
+            $this->documents = V3Factory::createDocumentCollection();
+            $this->signatureRequest = V3Factory::createSignatureRequest([]);
         } else {
             $this->files = V2Factory::createFileCollection();
             $this->procedure = V2Factory::createProcedure([]);

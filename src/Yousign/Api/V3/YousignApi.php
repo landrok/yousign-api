@@ -8,7 +8,6 @@ use Yousign\Api\AbstractApi;
 use Yousign\Model\V3\Factory;
 use Yousign\Model\V3\User;
 use Yousign\Model\V3\UserCollection;
-use Yousign\Process\BasicProcess;
 use Yousign\YousignClient;
 
 /*
@@ -33,17 +32,6 @@ final class YousignApi extends AbstractApi
     public function __construct(string $token, bool $production = false)
     {
         $this->client = new YousignClient($token, $production, YousignClient::API_VERSION_3);
-    }
-
-    /**
-     * A shortcut for integration tests
-     * It helps configuring low-level client options
-     */
-    public function setClientOptions(array $options): self
-    {
-        $this->client->setOptions($options);
-
-        return $this;
     }
 
     /**
@@ -74,20 +62,5 @@ final class YousignApi extends AbstractApi
         return Factory::createUser(
             json_decode((string) $response->getBody(), true)
         );
-    }
-
-    /**
-     * Basic mode
-     */
-    public function basic(): BasicProcess
-    {
-        return new BasicProcess($this);
-    }
-
-    /**
-     * @return YousignClient
-     */
-    public function getYousignClient(): YousignClient {
-        return $this->client;
     }
 }

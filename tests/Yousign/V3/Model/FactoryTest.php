@@ -12,7 +12,7 @@ class FactoryTest extends TestCase
     /**
      * Valid scenarios provider
      */
-    public function getValidModels()
+    public static function getValidModels()
     {
         # factory method => [ model name, model data ]
         return [

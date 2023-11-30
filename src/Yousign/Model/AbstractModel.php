@@ -51,7 +51,7 @@ abstract class AbstractModel
      * @param  string $name
      * @return mixed $value
      */
-    private function transform(string $name, $value)
+    private function transform(string $name, mixed $value): mixed
     {
         if (is_array($value) && TypeResolver::exists($name)) {
             $method = TypeResolver::getFactoryMethod($name);
@@ -69,7 +69,7 @@ abstract class AbstractModel
     /**
      * Standard getter method
      */
-    public function get(string $name)
+    public function get(string $name): mixed
     {
         return $this->has($name)
             ? $this->properties[$name]
@@ -106,7 +106,7 @@ abstract class AbstractModel
     /**
      * Get a JSON
      *
-     * @param  int     $options PHP JSON options
+     * @param int $options PHP JSON options
      */
     public function toJson(int $options = 0): string
     {

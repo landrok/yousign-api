@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Yousign;
 
-use Exception;
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Message;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\Message;
+use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /*
@@ -134,12 +134,14 @@ final class YousignClient
                 Message::toString($exception->getRequest())
             );
             if ($exception->hasResponse()) {
-                $message .= "\n" . Message::toString($exception->getResponse());
+                /** @var MessageInterface */
+                $response = $exception->getResponse();
+                $message .= "\n" . Message::toString($response);
             }
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             $message = $exception->getMessage();
         }
 
-        throw new Exception($message);
+        throw new \Exception($message);
     }
 }

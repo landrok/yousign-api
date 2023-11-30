@@ -2,10 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Yousign\Process;
+namespace Yousign\Process\V2;
 
 use Exception;
 use Yousign\Api\AbstractApi;
+use Yousign\Api\V2\YousignApi;
+use Yousign\Model\V2\Procedure;
+use Yousign\Process\AbstractProcess;
 
 /*
  * Basic process wrapper
@@ -35,6 +38,9 @@ class BasicProcess extends AbstractProcess
         $this->checkFilesBeforeBuilding();
         $this->checkProcedureBeforeBuilding();
 
+        /** @var YousignApi $api */
+        $api = $this->api;
+
         // --- Build and post file
         $count = $this->files->count();
         for ($i = 0; $i < $count; $i++) {
@@ -44,7 +50,7 @@ class BasicProcess extends AbstractProcess
             if ($file->has('content')) {
                 $this->files->offsetSet(
                     $i,
-                    $this->api->postFile(
+                    $api->postFile(
                         $file->toArray()
                     )
                 );
@@ -52,14 +58,17 @@ class BasicProcess extends AbstractProcess
             // @todo Make file with a given path
         }
 
+        /** @var Procedure $procedure */
+        $procedure = $this->procedure;
+
         // --- Build procedure
-        foreach ($this->procedure->members as $member) {
+        foreach ($procedure->members as $member) {
             foreach ($member->fileObjects as $fileObject) {
                 $fileObject->set('file', $this->files->offsetGet(0)->id);
             }
         }
 
-        $this->procedure = $this->api->postProcedure(
+        $this->procedure = $api->postProcedure(
             $this->procedure->toArray()
         );
 
