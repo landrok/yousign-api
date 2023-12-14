@@ -6,6 +6,8 @@ namespace Yousign\Api\V3;
 
 use Yousign\Api\AbstractApi;
 use Yousign\Model\V3\Factory;
+use Yousign\Model\V3\SignatureRequest;
+use Yousign\Model\V3\SignatureRequestCollection;
 use Yousign\Model\V3\User;
 use Yousign\Model\V3\UserCollection;
 use Yousign\YousignClient;
@@ -37,6 +39,7 @@ final class YousignApi extends AbstractApi
     /**
      * Get all users
      *
+     * @return UserCollection
      * @throws \Exception When HTTP client receive an error (4xx or 5xx)
      */
     public function getUsers(): UserCollection
@@ -50,6 +53,8 @@ final class YousignApi extends AbstractApi
 
     /**
      * Create an user
+     * 
+     * @return User
      */
     public function postUser(array $user): User
     {
@@ -62,5 +67,83 @@ final class YousignApi extends AbstractApi
         return Factory::createUser(
             json_decode((string) $response->getBody(), true)
         );
+    }
+
+    /**
+     * Get a signature request
+     *
+     * @param  string $signatureRequestId
+     * @return SignatureRequest
+     */
+    public function getSignatureRequest(string $signatureRequestId): SignatureRequest
+    {
+        $response = $this->client->get("/signature_requests/{$signatureRequestId}");
+
+        return Factory::createSignatureRequest(
+            json_decode((string) $response->getBody(), true)
+        );
+    }
+
+    /**
+     * Get all signatures requests
+     *
+     * @return SignatureRequestCollection
+     */
+    public function getSignatureRequests(): SignatureRequestCollection
+    {
+        $response = $this->client->get("/signature_requests");
+
+        return Factory::createSignatureRequestCollection(
+            json_decode((string) $response->getBody(), true)
+        );
+    }
+
+    /**
+     * Post a signature request
+     *
+     * @param  string $name
+     * @param  string $deliveryMode Enum: "email", "none"
+     * @param  array<mixed> $params
+     * @return SignatureRequest
+     */
+    public function postSignatureRequest(string $name, string $deliveryMode, array $params = []): SignatureRequest
+    {
+        $response = $this->client->post('/signature_requests', [
+            'name'          => $name,
+            'delivery_mode' => $deliveryMode,
+            ...$params
+        ]);
+
+        return Factory::createSignatureRequest(
+            json_decode((string) $response->getBody(), true)
+        );
+    }
+
+    /**
+     * Patch a signature request
+     *
+     * @param  array<mixed> $params
+     * @return SignatureRequest
+     */
+    public function patchSignatureRequest($params = []): SignatureRequest
+    {
+        $response = $this->client->patch('/signature_requests', $params);
+
+        return Factory::createSignatureRequest(
+            json_decode((string) $response->getBody(), true)
+        );
+    }
+
+    /**
+     * Delete a signature request
+     *
+     * @param  string $signatureRequestId
+     * @return null
+     */
+    public function deleteSignatureRequest(string $signatureRequestId)
+    {
+        $this->client->delete("/signature_requests/{$signatureRequestId}");
+
+        return null;
     }
 }

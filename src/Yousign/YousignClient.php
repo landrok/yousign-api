@@ -111,11 +111,27 @@ final class YousignClient
     }
 
     /**
+     * HTTP PATCH wrapper
+     */
+    public function patch(string $uri, array $params): ResponseInterface
+    {
+        return $this->send('patch', $uri, $params);
+    }
+
+    /**
      * HTTP PUT wrapper
      */
     public function put(string $uri, array $params): ResponseInterface
     {
         return $this->send('put', $uri, $params);
+    }
+
+    /**
+     * HTTP DELETE wrapper
+     */
+    public function delete(string $uri): ResponseInterface
+    {
+        return $this->send('delete', $uri);
     }
 
     /**
