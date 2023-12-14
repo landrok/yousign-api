@@ -39,11 +39,11 @@ class FakeFileObject extends AbstractFakeModel
 
     public static function getModel(): AbstractModel
     {
-        return Factory::createUser(static::getProperties());
+        return Factory::createFileObject(static::getProperties());
     }
 
     public static function getCollection(): AbstractModelCollection
     {
-        return Factory::createUserCollection(static::getProperties());
+        return Factory::createFileObjectCollection(static::getProperties());
     }
 }

@@ -48,11 +48,11 @@ final class FakeMember extends AbstractFakeModel
 
     public static function getModel(): AbstractModel
     {
-        return Factory::createUser(static::getProperties());
+        return Factory::createMember(static::getProperties());
     }
 
     public static function getCollection(): AbstractModelCollection
     {
-        return Factory::createUserCollection(static::getProperties());
+        return Factory::createMemberCollection(static::getProperties());
     }
 }

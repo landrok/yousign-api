@@ -93,11 +93,11 @@ final class FakeSignatureUi extends AbstractFakeModel
 
     public static function getModel(): AbstractModel
     {
-        return Factory::createUser(static::getProperties());
+        return Factory::createSignatureUi(static::getProperties());
     }
 
     public static function getCollection(): AbstractModelCollection
     {
-        return Factory::createUserCollection(static::getProperties());
+        return (new AbstractModelCollection)->add(static::getModel());
     }
 }
