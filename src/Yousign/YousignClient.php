@@ -111,6 +111,17 @@ final class YousignClient
     }
 
     /**
+     * HTTP POST file wrapper
+     */
+    public function postFile(string $uri, array $params): ResponseInterface
+    {
+        return $this->send('post', $uri, [
+            'content-type' => 'multipart/form-data',
+            ...$params
+        ]);
+    }
+
+    /**
      * HTTP PATCH wrapper
      */
     public function patch(string $uri, array $params): ResponseInterface

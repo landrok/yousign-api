@@ -7,62 +7,64 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use Yousign\Api\V3\YousignApi;
-use YousignTest\V3\Fake\Model\FakeSignatureRequest;
+use YousignTest\V3\Fake\Model\FakeDocument;
 
-class SignatureRequestInteractionTest extends TestCase
+class DocumentInteractionTest extends TestCase
 {
     /**
      * Retrieve a signature request
      */
-    public function testGetSignatureRequest(): void
+    public function testGetDocument(): void
     {
         // Create a mock handler
         $mock = new MockHandler([
-            new Response(200, [], json_encode(FakeSignatureRequest::getProperties())),
+            new Response(200, [], json_encode(FakeDocument::getProperties())),
         ]);
 
         $handlerStack = HandlerStack::create($mock);
         $yousign = new YousignApi('1234', false);
 
-        $response = $yousign->setClientOptions(['handler' => $handlerStack])->getSignatureRequest('1234');
+        $response = $yousign->setClientOptions(['handler' => $handlerStack])->getDocument('1234', '1234');
 
-        $this->assertEquals($response->toArray(), FakeSignatureRequest::getModel()->toArray());
+        $this->assertEquals($response->toArray(), FakeDocument::getModel()->toArray());
     }
 
     /**
      * Retrieve all signatures requests
      */
-    public function testGetSignatureRequestCollection(): void
+    public function testGetDocumentCollection(): void
     {
         // Create a mock handler
         $mock = new MockHandler([
-            new Response(200, [], json_encode([FakeSignatureRequest::getProperties()])),
+            new Response(200, [], json_encode([FakeDocument::getProperties()])),
         ]);
 
         $handlerStack = HandlerStack::create($mock);
         $yousign = new YousignApi('1234', false);
 
-        $response = $yousign->setClientOptions(['handler' => $handlerStack])->getSignatureRequests();
+        $response = $yousign->setClientOptions(['handler' => $handlerStack])->getDocuments('1234');
 
-        $this->assertEquals($response->toArray(), FakeSignatureRequest::getCollection()->toArray());
+        $this->assertEquals($response->toArray(), FakeDocument::getCollection()->toArray());
     }
 
     /**
      * Create a signature request
      */
-    public function testPostSignatureRequest(): void
+    public function testPostDocument(): void
     {
         // Create a mock handler
         $mock = new MockHandler([
-            new Response(201, [], json_encode(FakeSignatureRequest::getProperties()))
+            new Response(201, [], json_encode(FakeDocument::getProperties()))
         ]);
 
         $handlerStack = HandlerStack::create($mock);
         $yousign = new YousignApi('1234');
+        $filePath = dirname(__DIR__, 3) . '/samples/test-file-1.pdf';
+        $file = new \SplFileInfo($filePath);
 
         $yousign->setClientOptions(['handler' => $handlerStack]);
 
-        $response = $yousign->postSignatureRequest('A Signature Request', 'email', [
+        $response = $yousign->postDocument('1234', $file, 'signable_document', [
             'ordered_signers' => false,
             'reminder_settings' => [
                 'interval_in_days' => 7,
@@ -73,17 +75,17 @@ class SignatureRequestInteractionTest extends TestCase
             'external_id' => '1234',
         ]);
 
-        $this->assertEquals($response->toArray(), FakeSignatureRequest::getProperties());
+        $this->assertEquals($response->toArray(), FakeDocument::getProperties());
     }
 
     /**
      * Update a signature request
      */
-    public function testPatchSignatureRequest(): void
+    public function testPatchDocument(): void
     {
         // Create a mock handler
         $mock = new MockHandler([
-            new Response(201, [], json_encode(FakeSignatureRequest::getProperties()))
+            new Response(201, [], json_encode(FakeDocument::getProperties()))
         ]);
 
         $handlerStack = HandlerStack::create($mock);
@@ -91,7 +93,7 @@ class SignatureRequestInteractionTest extends TestCase
 
         $yousign->setClientOptions(['handler' => $handlerStack]);
 
-        $response = $yousign->patchSignatureRequest([
+        $response = $yousign->patchDocument('1234', '1234', [
             'ordered_signers' => false,
             'reminder_settings' => [
                 'interval_in_days' => 7,
@@ -102,13 +104,13 @@ class SignatureRequestInteractionTest extends TestCase
             'external_id' => '1234',
         ]);
 
-        $this->assertEquals($response->toArray(), FakeSignatureRequest::getProperties());
+        $this->assertEquals($response->toArray(), FakeDocument::getProperties());
     }
 
     /**
      * Update a signature request
      */
-    public function testDeleteSignatureRequest(): void
+    public function testDeleteDocument(): void
     {
         // Create a mock handler
         $mock = new MockHandler([
@@ -120,7 +122,7 @@ class SignatureRequestInteractionTest extends TestCase
 
         $yousign->setClientOptions(['handler' => $handlerStack]);
 
-        $response = $yousign->deleteSignatureRequest('1234');
+        $response = $yousign->deleteDocument('1234', '1234');
 
         $this->assertNull($response);
     }
