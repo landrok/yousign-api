@@ -31,7 +31,6 @@ class FactoryTest extends TestCase
      * Check that all core objects have a correct type.
      *
      * @dataProvider getValidModels
-     * @group demo
      */
     public function testValidModels($name, $data = [])
     {

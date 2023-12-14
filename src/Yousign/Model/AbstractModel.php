@@ -38,7 +38,7 @@ abstract class AbstractModel
      * @param  string  $name
      * @param  mixed  $value
      */
-    public function set(string $name, $value): self
+    public function set(string $name, mixed $value): self
     {
         $this->properties[$name] = $this->transform($name, $value);
 
