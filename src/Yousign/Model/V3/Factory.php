@@ -56,40 +56,6 @@ abstract class Factory
     }
 
     /**
-     * Factory method to create a User model
-     *
-     * @param  array $attributes
-     */
-    public static function createUser(array $attributes = []): User
-    {
-        $item = new User();
-
-        foreach ($attributes as $attribute => $value) {
-            $item->set($attribute, $value);
-        }
-
-        return $item;
-    }
-
-    /**
-     * Factory method to create a UserCollection model
-     *
-     * @param  array $items
-     */
-    public static function createUserCollection(array $items = []): UserCollection
-    {
-        $collection = new UserCollection();
-
-        foreach ($items as $item) {
-            $collection->add(
-                self::createUser($item)
-            );
-        }
-
-        return $collection;
-    }
-
-    /**
      * Factory method to create a SignatureRequest model
      *
      * @param  array $attributes
@@ -117,6 +83,74 @@ abstract class Factory
         foreach ($items as $item) {
             $collection->add(
                 self::createSignatureRequest($item)
+            );
+        }
+
+        return $collection;
+    }
+
+    /**
+     * Factory method to create a Signer model
+     *
+     * @param  array $attributes
+     */
+    public static function createSigner(array $attributes = []): Signer
+    {
+        $item = new Signer();
+
+        foreach ($attributes as $attribute => $value) {
+            $item->set($attribute, $value);
+        }
+
+        return $item;
+    }
+
+    /**
+     * Factory method to create a SignerCollection model
+     *
+     * @param  array $items
+     */
+    public static function createSignerCollection(array $items = []): SignerCollection
+    {
+        $collection = new SignerCollection();
+
+        foreach ($items as $item) {
+            $collection->add(
+                self::createSigner($item)
+            );
+        }
+
+        return $collection;
+    }
+
+    /**
+     * Factory method to create a User model
+     *
+     * @param  array $attributes
+     */
+    public static function createUser(array $attributes = []): User
+    {
+        $item = new User();
+
+        foreach ($attributes as $attribute => $value) {
+            $item->set($attribute, $value);
+        }
+
+        return $item;
+    }
+
+    /**
+     * Factory method to create a UserCollection model
+     *
+     * @param  array $items
+     */
+    public static function createUserCollection(array $items = []): UserCollection
+    {
+        $collection = new UserCollection();
+
+        foreach ($items as $item) {
+            $collection->add(
+                self::createUser($item)
             );
         }
 

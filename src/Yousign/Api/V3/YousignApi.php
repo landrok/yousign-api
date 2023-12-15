@@ -10,6 +10,8 @@ use Yousign\Model\V3\DocumentCollection;
 use Yousign\Model\V3\Factory;
 use Yousign\Model\V3\SignatureRequest;
 use Yousign\Model\V3\SignatureRequestCollection;
+use Yousign\Model\V3\Signer;
+use Yousign\Model\V3\SignerCollection;
 use Yousign\Model\V3\User;
 use Yousign\Model\V3\UserCollection;
 use Yousign\YousignClient;
@@ -196,6 +198,113 @@ final class YousignApi extends AbstractApi
     public function deleteSignatureRequest(string $signatureRequestId)
     {
         $this->client->delete("/signature_requests/{$signatureRequestId}");
+
+        return null;
+    }
+
+    /**
+     * Get a signer in a signature request
+     *
+     * @param  string $signatureRequestId
+     * @param  string $signerId
+     * @return Signer
+     */
+    public function getSigner(string $signatureRequestId, string $signerId): Signer
+    {
+        $response = $this->client->get("/signature_requests/{$signatureRequestId}/signers/{$signerId}");
+
+        return Factory::createSigner(
+            json_decode((string) $response->getBody(), true)
+        );
+    }
+
+    /**
+     * Get all signature request signers
+     *
+     * @param  string $signatureRequestId
+     * @return SignerCollection
+     */
+    public function getSigners(string $signatureRequestId): SignerCollection
+    {
+        $response = $this->client->get("/signature_requests/{$signatureRequestId}/signers");
+
+        return Factory::createSignerCollection(
+            json_decode((string) $response->getBody(), true)
+        );
+    }
+
+    /**
+     * Post a signer in a signature request
+     *
+     * @param  string $signatureRequestId
+     * @param  string $first_name
+     * @param  string $last_name
+     * @param  string $email
+     * @param  string $phone_number E.164 format
+     * @param  string $locale
+     * @param  string $signature_level Enum: "electronic_signature",
+     *                                       "advanced_electronic_signature",
+     *                                       "electronic_signature_with_qualified_certificate",
+     *                                       "qualified_electronic_signature",
+     *                                       "qualified_electronic_signature_mode_1"
+     * @param  array<mixed> $params
+     * @return Signer
+     */
+    public function postSigner(
+        string $signatureRequestId,
+        string $first_name,
+        string $last_name,
+        string $email,
+        string $phone_number,
+        string $locale,
+        string $signature_level,
+        array $params = []
+    ): Signer
+    {
+        $response = $this->client->post("/signature_requests/{$signatureRequestId}", [
+            'info'            => [
+                'first_name'   => $first_name,
+                'last_name'    => $last_name,
+                'email'        => $email,
+                'phone_number' => $phone_number,
+                'locale'       => $locale,
+            ],
+            'signature_level' => $signature_level,
+            ...$params
+        ]);
+
+        return Factory::createSigner(
+            json_decode((string) $response->getBody(), true)
+        );
+    }
+
+    /**
+     * Patch a signer in a signature request
+     * 
+     * @param  string $signatureRequestId
+     * @param  string $signerId
+     * @param  array<mixed> $params
+     * @return Signer
+     */
+    public function patchSigner(string $signatureRequestId, string $signerId, array $params = []): Signer
+    {
+        $response = $this->client->patch("/signature_requests/{$signatureRequestId}/signers/{$signerId}", $params);
+
+        return Factory::createSigner(
+            json_decode((string) $response->getBody(), true)
+        );
+    }
+
+    /**
+     * Delete a signer in a signature request
+     *
+     * @param  string $signatureRequestId
+     * @param  string $signerId
+     * @return null
+     */
+    public function deleteSigner(string $signatureRequestId, string $signerId)
+    {
+        $this->client->delete("/signature_requests/{$signatureRequestId}/signers/{$signerId}");
 
         return null;
     }
