@@ -13,6 +13,7 @@ use Yousign\Model\V3\SignatureRequestCollection;
 use Yousign\Model\V3\Signer;
 use Yousign\Model\V3\SignerCollection;
 use Yousign\Model\V3\UserCollection;
+use Yousign\Model\V3\WorkspaceCollection;
 use Yousign\YousignClient;
 
 /*
@@ -319,6 +320,21 @@ final class YousignApi extends AbstractApi
         $response = $this->client->get('users');
 
         return Factory::createUserCollection(
+            json_decode((string) $response->getBody(), true)
+        );
+    }
+
+    /**
+     * Get all workspaces
+     *
+     * @return WorkspaceCollection
+     * @throws \Exception When HTTP client receive an error (4xx or 5xx)
+     */
+    public function getWorkspaces(): WorkspaceCollection
+    {
+        $response = $this->client->get('workspaces');
+
+        return Factory::createWorkspaceCollection(
             json_decode((string) $response->getBody(), true)
         );
     }
