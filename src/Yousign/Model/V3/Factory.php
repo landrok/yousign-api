@@ -28,7 +28,7 @@ abstract class Factory
      */
     public static function createDocument(array $attributes = []): Document
     {
-        $item = new Document();
+        $item = new Document;
 
         foreach ($attributes as $attribute => $value) {
             $item->set($attribute, $value);
@@ -44,12 +44,11 @@ abstract class Factory
      */
     public static function createDocumentCollection(array $items = []): DocumentCollection
     {
-        $collection = new DocumentCollection();
+        $collection = new DocumentCollection;
+        $items = $items['data'] ?? [];
 
-        foreach ($items['data'] as $item) {
-            $collection->add(
-                self::createDocument($item)
-            );
+        foreach ($items as $item) {
+            $collection->add(self::createDocument($item));
         }
 
         return $collection;
@@ -62,7 +61,7 @@ abstract class Factory
      */
     public static function createSignatureRequest(array $attributes = []): SignatureRequest
     {
-        $item = new SignatureRequest();
+        $item = new SignatureRequest;
 
         foreach ($attributes as $attribute => $value) {
             $item->set($attribute, $value);
@@ -78,12 +77,11 @@ abstract class Factory
      */
     public static function createSignatureRequestCollection(array $items = []): SignatureRequestCollection
     {
-        $collection = new SignatureRequestCollection();
+        $collection = new SignatureRequestCollection;
+        $items = $items['data'] ?? [];
 
-        foreach ($items['data'] as $item) {
-            $collection->add(
-                self::createSignatureRequest($item)
-            );
+        foreach ($items as $item) {
+            $collection->add(self::createSignatureRequest($item));
         }
 
         return $collection;
@@ -96,7 +94,7 @@ abstract class Factory
      */
     public static function createSigner(array $attributes = []): Signer
     {
-        $item = new Signer();
+        $item = new Signer;
 
         foreach ($attributes as $attribute => $value) {
             $item->set($attribute, $value);
@@ -112,12 +110,11 @@ abstract class Factory
      */
     public static function createSignerCollection(array $items = []): SignerCollection
     {
-        $collection = new SignerCollection();
+        $collection = new SignerCollection;
+        $items = $items['data'] ?? [];
 
-        foreach ($items['data'] as $item) {
-            $collection->add(
-                self::createSigner($item)
-            );
+        foreach ($items as $item) {
+            $collection->add(self::createSigner($item));
         }
 
         return $collection;
@@ -130,7 +127,7 @@ abstract class Factory
      */
     public static function createUser(array $attributes = []): User
     {
-        $item = new User();
+        $item = new User;
 
         foreach ($attributes as $attribute => $value) {
             $item->set($attribute, $value);
@@ -146,12 +143,11 @@ abstract class Factory
      */
     public static function createUserCollection(array $items = []): UserCollection
     {
-        $collection = new UserCollection();
+        $collection = new UserCollection;
+        $items = $items['data'] ?? [];
 
-        foreach ($items['data'] as $item) {
-            $collection->add(
-                self::createUser($item)
-            );
+        foreach ($items as $item) {
+            $collection->add(self::createUser($item));
         }
 
         return $collection;
@@ -164,7 +160,7 @@ abstract class Factory
      */
     public static function createWorkspace(array $attributes = []): Workspace
     {
-        $item = new Workspace();
+        $item = new Workspace;
 
         foreach ($attributes as $attribute => $value) {
             $item->set($attribute, $value);
@@ -180,12 +176,11 @@ abstract class Factory
      */
     public static function createWorkspaceCollection(array $items = []): WorkspaceCollection
     {
-        $collection = new WorkspaceCollection();
+        $collection = new WorkspaceCollection;
+        $items = $items['data'] ?? [];
 
-        foreach ($items['data'] as $item) {
-            $collection->add(
-                self::createWorkspace($item)
-            );
+        foreach ($items as $item) {
+            $collection->add(self::createWorkspace($item));
         }
 
         return $collection;
