@@ -12,7 +12,6 @@ use Yousign\Model\V3\SignatureRequest;
 use Yousign\Model\V3\SignatureRequestCollection;
 use Yousign\Model\V3\Signer;
 use Yousign\Model\V3\SignerCollection;
-use Yousign\Model\V3\User;
 use Yousign\Model\V3\UserCollection;
 use Yousign\YousignClient;
 
@@ -49,7 +48,7 @@ final class YousignApi extends AbstractApi
      */
     public function getDocument(string $signatureRequestId, string $documentId): Document
     {
-        $response = $this->client->get("/signature_requests/{$signatureRequestId}/documents/{$documentId}");
+        $response = $this->client->get("signature_requests/{$signatureRequestId}/documents/{$documentId}");
 
         return Factory::createDocument(
             json_decode((string) $response->getBody(), true)
@@ -64,7 +63,7 @@ final class YousignApi extends AbstractApi
      */
     public function getDocuments(string $signatureRequestId): DocumentCollection
     {
-        $response = $this->client->get("/signature_requests/{$signatureRequestId}/documents");
+        $response = $this->client->get("signature_requests/{$signatureRequestId}/documents");
 
         return Factory::createDocumentCollection(
             json_decode((string) $response->getBody(), true)
@@ -82,7 +81,7 @@ final class YousignApi extends AbstractApi
      */
     public function postDocument(string $signatureRequestId, \SplFileInfo $file, string $nature, array $params = []): Document
     {
-        $response = $this->client->postFile("/signature_requests/{$signatureRequestId}", [
+        $response = $this->client->postFile("signature_requests/{$signatureRequestId}", [
             'file'   => $file,
             'nature' => $nature,
             ...$params
@@ -103,7 +102,7 @@ final class YousignApi extends AbstractApi
      */
     public function patchDocument(string $signatureRequestId, string $documentId, array $params = []): Document
     {
-        $response = $this->client->patch("/signature_requests/{$signatureRequestId}/documents/{$documentId}", $params);
+        $response = $this->client->patch("signature_requests/{$signatureRequestId}/documents/{$documentId}", $params);
 
         return Factory::createDocument(
             json_decode((string) $response->getBody(), true)
@@ -119,7 +118,7 @@ final class YousignApi extends AbstractApi
      */
     public function deleteDocument(string $signatureRequestId, string $documentId)
     {
-        $this->client->delete("/signature_requests/{$signatureRequestId}/documents/{$documentId}");
+        $this->client->delete("signature_requests/{$signatureRequestId}/documents/{$documentId}");
 
         return null;
     }
@@ -132,7 +131,7 @@ final class YousignApi extends AbstractApi
      */
     public function getSignatureRequest(string $signatureRequestId): SignatureRequest
     {
-        $response = $this->client->get("/signature_requests/{$signatureRequestId}");
+        $response = $this->client->get("signature_requests/{$signatureRequestId}");
 
         return Factory::createSignatureRequest(
             json_decode((string) $response->getBody(), true)
@@ -146,7 +145,7 @@ final class YousignApi extends AbstractApi
      */
     public function getSignatureRequests(): SignatureRequestCollection
     {
-        $response = $this->client->get('/signature_requests');
+        $response = $this->client->get('signature_requests');
 
         return Factory::createSignatureRequestCollection(
             json_decode((string) $response->getBody(), true)
@@ -163,7 +162,7 @@ final class YousignApi extends AbstractApi
      */
     public function postSignatureRequest(string $name, string $deliveryMode, array $params = []): SignatureRequest
     {
-        $response = $this->client->post('/signature_requests', [
+        $response = $this->client->post('signature_requests', [
             'name'          => $name,
             'delivery_mode' => $deliveryMode,
             ...$params
@@ -182,7 +181,7 @@ final class YousignApi extends AbstractApi
      */
     public function patchSignatureRequest(array $params = []): SignatureRequest
     {
-        $response = $this->client->patch('/signature_requests', $params);
+        $response = $this->client->patch('signature_requests', $params);
 
         return Factory::createSignatureRequest(
             json_decode((string) $response->getBody(), true)
@@ -197,7 +196,7 @@ final class YousignApi extends AbstractApi
      */
     public function deleteSignatureRequest(string $signatureRequestId)
     {
-        $this->client->delete("/signature_requests/{$signatureRequestId}");
+        $this->client->delete("signature_requests/{$signatureRequestId}");
 
         return null;
     }
@@ -211,7 +210,7 @@ final class YousignApi extends AbstractApi
      */
     public function getSigner(string $signatureRequestId, string $signerId): Signer
     {
-        $response = $this->client->get("/signature_requests/{$signatureRequestId}/signers/{$signerId}");
+        $response = $this->client->get("signature_requests/{$signatureRequestId}/signers/{$signerId}");
 
         return Factory::createSigner(
             json_decode((string) $response->getBody(), true)
@@ -226,7 +225,7 @@ final class YousignApi extends AbstractApi
      */
     public function getSigners(string $signatureRequestId): SignerCollection
     {
-        $response = $this->client->get("/signature_requests/{$signatureRequestId}/signers");
+        $response = $this->client->get("signature_requests/{$signatureRequestId}/signers");
 
         return Factory::createSignerCollection(
             json_decode((string) $response->getBody(), true)
@@ -261,7 +260,7 @@ final class YousignApi extends AbstractApi
         array $params = []
     ): Signer
     {
-        $response = $this->client->post("/signature_requests/{$signatureRequestId}", [
+        $response = $this->client->post("signature_requests/{$signatureRequestId}", [
             'info'            => [
                 'first_name'   => $first_name,
                 'last_name'    => $last_name,
@@ -288,7 +287,7 @@ final class YousignApi extends AbstractApi
      */
     public function patchSigner(string $signatureRequestId, string $signerId, array $params = []): Signer
     {
-        $response = $this->client->patch("/signature_requests/{$signatureRequestId}/signers/{$signerId}", $params);
+        $response = $this->client->patch("signature_requests/{$signatureRequestId}/signers/{$signerId}", $params);
 
         return Factory::createSigner(
             json_decode((string) $response->getBody(), true)
@@ -304,7 +303,7 @@ final class YousignApi extends AbstractApi
      */
     public function deleteSigner(string $signatureRequestId, string $signerId)
     {
-        $this->client->delete("/signature_requests/{$signatureRequestId}/signers/{$signerId}");
+        $this->client->delete("signature_requests/{$signatureRequestId}/signers/{$signerId}");
 
         return null;
     }
@@ -317,28 +316,9 @@ final class YousignApi extends AbstractApi
      */
     public function getUsers(): UserCollection
     {
-        $response = $this->client->get('/users');
+        $response = $this->client->get('users');
 
         return Factory::createUserCollection(
-            json_decode((string) $response->getBody(), true)
-        );
-    }
-
-    /**
-     * Create an user
-     * 
-     * @return User
-     */
-    public function postUser(array $user): User
-    {
-        $response = $this->client->post(
-            '/users',
-            [
-                'body' => json_encode($user)
-            ]
-        );
-
-        return Factory::createUser(
             json_decode((string) $response->getBody(), true)
         );
     }

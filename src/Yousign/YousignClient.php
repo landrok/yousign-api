@@ -51,7 +51,7 @@ final class YousignClient
         string $version = self::API_VERSION_2
     ) {
         if ($version === 'v3') {
-            $url = $production ? 'https://api.yousign.app/v3' : 'https://api-sandbox.yousign.app/v3';
+            $url = $production ? 'https://api.yousign.app/v3/' : 'https://api-sandbox.yousign.app/v3/';
         } else {
             $url = $production ? 'https://api.yousign.com' : 'https://staging-api.yousign.com';
         }
