@@ -46,7 +46,7 @@ abstract class Factory
     {
         $collection = new DocumentCollection();
 
-        foreach ($items as $item) {
+        foreach ($items['data'] as $item) {
             $collection->add(
                 self::createDocument($item)
             );
@@ -80,7 +80,7 @@ abstract class Factory
     {
         $collection = new SignatureRequestCollection();
 
-        foreach ($items as $item) {
+        foreach ($items['data'] as $item) {
             $collection->add(
                 self::createSignatureRequest($item)
             );
@@ -114,7 +114,7 @@ abstract class Factory
     {
         $collection = new SignerCollection();
 
-        foreach ($items as $item) {
+        foreach ($items['data'] as $item) {
             $collection->add(
                 self::createSigner($item)
             );
@@ -148,7 +148,7 @@ abstract class Factory
     {
         $collection = new UserCollection();
 
-        foreach ($items as $item) {
+        foreach ($items['data'] as $item) {
             $collection->add(
                 self::createUser($item)
             );
@@ -182,7 +182,7 @@ abstract class Factory
     {
         $collection = new WorkspaceCollection();
 
-        foreach ($items as $item) {
+        foreach ($items['data'] as $item) {
             $collection->add(
                 self::createWorkspace($item)
             );

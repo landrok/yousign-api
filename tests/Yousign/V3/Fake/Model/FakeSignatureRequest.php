@@ -58,6 +58,6 @@ final class FakeSignatureRequest extends AbstractFakeModel
 
     public static function getCollection(): AbstractModelCollection
     {
-        return Factory::createUserCollection([static::getProperties()]);
+        return Factory::createUserCollection(['data' => [static::getProperties()]]);
     }
 }

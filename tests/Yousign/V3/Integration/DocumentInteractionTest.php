@@ -36,7 +36,7 @@ class DocumentInteractionTest extends TestCase
     {
         // Create a mock handler
         $mock = new MockHandler([
-            new Response(200, [], json_encode([FakeDocument::getProperties()])),
+            new Response(200, [], json_encode(['data' => [FakeDocument::getProperties()]])),
         ]);
 
         $handlerStack = HandlerStack::create($mock);

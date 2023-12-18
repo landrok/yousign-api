@@ -18,7 +18,7 @@ class UserInteractionTest extends TestCase
     {
         // Create a mock handler
         $mock = new MockHandler([
-            new Response(200, [], json_encode([FakeUser::getProperties()])),
+            new Response(200, [], json_encode(['data' => [FakeUser::getProperties()]])),
         ]);
 
         $handlerStack = HandlerStack::create($mock);

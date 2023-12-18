@@ -16,35 +16,20 @@ use YousignTest\V3\Fake\Model\FakeUser;
 class FirstCallTest extends TestCase
 {
     /**
-     * Making first call helper method
-     */
-    public function firstCallSuccess($production = false)
-    {
-        // Create a mock handler
-        $mock = new MockHandler([
-            new Response(200, [], json_encode([FakeUser::getProperties()])),
-        ]);
-
-        $handlerStack = HandlerStack::create($mock);
-        $yousign = new YousignApi('1234', $production);
-        return $yousign->setClientOptions([
-            'handler' => $handlerStack
-        ])->getUsers();
-
-    }
-
-    /**
      * Making first call on staging environment
      */
     public function testFirstCallSuccessStaging()
     {
-        $users = $this->firstCallSuccess(false);
+        $mock = new MockHandler([
+            new Response(200, [], json_encode(['data' => [FakeUser::getProperties()]])),
+        ]);
+
+        $handlerStack = HandlerStack::create($mock);
+        $yousign = new YousignApi('1234', false);
+        $response = $yousign->setClientOptions(['handler' => $handlerStack])->getUsers();
 
         // Assert type
-        $this->assertEquals(
-            [FakeUser::getProperties()],
-            $users->toArray()
-        );
+        $this->assertEquals($response->toArray(), FakeUser::getCollection()->toArray());
     }
 
     /**
@@ -52,13 +37,16 @@ class FirstCallTest extends TestCase
      */
     public function testFirstCallSuccessProduction()
     {
-        $users = $this->firstCallSuccess(true);
+        $mock = new MockHandler([
+            new Response(200, [], json_encode(['data' => [FakeUser::getProperties()]])),
+        ]);
+
+        $handlerStack = HandlerStack::create($mock);
+        $yousign = new YousignApi('1234', true);
+        $response = $yousign->setClientOptions(['handler' => $handlerStack])->getUsers();
 
         // Assert type
-        $this->assertEquals(
-            [FakeUser::getProperties()],
-            $users->toArray()
-        );
+        $this->assertEquals($response->toArray(), FakeUser::getCollection()->toArray());
     }
 
     /**

@@ -36,7 +36,7 @@ class SignerInteractionTest extends TestCase
     {
         // Create a mock handler
         $mock = new MockHandler([
-            new Response(200, [], json_encode([FakeSigner::getProperties()])),
+            new Response(200, [], json_encode(['data' => [FakeSigner::getProperties()]])),
         ]);
 
         $handlerStack = HandlerStack::create($mock);
