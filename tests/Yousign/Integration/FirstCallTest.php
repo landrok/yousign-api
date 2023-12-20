@@ -65,7 +65,7 @@ class FirstCallTest extends TestCase
     /**
      * Failures provider
      */
-    public function getFailures()
+    public static function getFailures()
     {
         // Create a mock handler
         $bases = [

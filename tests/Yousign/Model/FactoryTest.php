@@ -11,7 +11,7 @@ class FactoryTest extends TestCase
     /**
      * Valid scenarios provider
      */
-    public function getValidModels()
+    public static function getValidModels()
     {
         $fakeUser = [
             "id" => "/users/0a12345a-ea7f-424a-a684-123456789010",
