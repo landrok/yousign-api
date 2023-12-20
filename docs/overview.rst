@@ -13,7 +13,7 @@ methods for basic and advanced modes.
 Requirements
 ============
 
-- PHP 7.1+
+- PHP 7.4+
 - Before using this library, you have to create your account on
   `Yousign platform <https://staging-auth.yousign.com/pre-signup>`_ to
   get an API token before using this library.
