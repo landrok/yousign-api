@@ -11,7 +11,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "*",
-        "phpstan/phpstan": "^1.8"
+        "phpstan/phpstan": "^1.8",
+        "larapack/dd": "^1.1"
     },
     "autoload": {
         "psr-4": {
