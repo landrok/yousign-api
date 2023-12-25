@@ -82,7 +82,7 @@ final class YousignApi extends AbstractApi
      */
     public function postDocument(string $signatureRequestId, \SplFileInfo $file, string $nature, array $params = []): Document
     {
-        $response = $this->client->postFile("signature_requests/{$signatureRequestId}", [
+        $response = $this->client->postFile("signature_requests/{$signatureRequestId}/documents", [
             'file'   => $file,
             'nature' => $nature,
             ...$params
