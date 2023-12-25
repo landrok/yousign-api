@@ -103,7 +103,10 @@ final class YousignApi extends AbstractApi
      */
     public function patchDocument(string $signatureRequestId, string $documentId, array $params = []): Document
     {
-        $response = $this->client->patch("signature_requests/{$signatureRequestId}/documents/{$documentId}", $params);
+        $response = $this->client->patch(
+            "signature_requests/{$signatureRequestId}/documents/{$documentId}",
+            ['json' => $params]
+        );
 
         return Factory::createDocument(
             json_decode((string) $response->getBody(), true)
@@ -164,9 +167,11 @@ final class YousignApi extends AbstractApi
     public function postSignatureRequest(string $name, string $deliveryMode, array $params = []): SignatureRequest
     {
         $response = $this->client->post('signature_requests', [
-            'name'          => $name,
-            'delivery_mode' => $deliveryMode,
-            ...$params
+            'json' => [
+                'name'          => $name,
+                'delivery_mode' => $deliveryMode,
+                ...$params
+            ]
         ]);
 
         return Factory::createSignatureRequest(
@@ -182,7 +187,7 @@ final class YousignApi extends AbstractApi
      */
     public function patchSignatureRequest(array $params = []): SignatureRequest
     {
-        $response = $this->client->patch('signature_requests', $params);
+        $response = $this->client->patch('signature_requests', ['json' => $params]);
 
         return Factory::createSignatureRequest(
             json_decode((string) $response->getBody(), true)
@@ -262,15 +267,17 @@ final class YousignApi extends AbstractApi
     ): Signer
     {
         $response = $this->client->post("signature_requests/{$signatureRequestId}", [
-            'info'            => [
-                'first_name'   => $first_name,
-                'last_name'    => $last_name,
-                'email'        => $email,
-                'phone_number' => $phone_number,
-                'locale'       => $locale,
-            ],
-            'signature_level' => $signature_level,
-            ...$params
+            'json' => [
+                'info'            => [
+                    'first_name'   => $first_name,
+                    'last_name'    => $last_name,
+                    'email'        => $email,
+                    'phone_number' => $phone_number,
+                    'locale'       => $locale,
+                ],
+                'signature_level' => $signature_level,
+                ...$params
+            ]
         ]);
 
         return Factory::createSigner(
@@ -288,7 +295,10 @@ final class YousignApi extends AbstractApi
      */
     public function patchSigner(string $signatureRequestId, string $signerId, array $params = []): Signer
     {
-        $response = $this->client->patch("signature_requests/{$signatureRequestId}/signers/{$signerId}", $params);
+        $response = $this->client->patch(
+            "signature_requests/{$signatureRequestId}/signers/{$signerId}",
+            ['json' => $params]
+        );
 
         return Factory::createSigner(
             json_decode((string) $response->getBody(), true)
