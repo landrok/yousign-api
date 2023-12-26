@@ -91,7 +91,7 @@ class SignatureRequestInteractionTest extends TestCase
 
         $yousign->setClientOptions(['handler' => $handlerStack]);
 
-        $response = $yousign->patchSignatureRequest([
+        $response = $yousign->patchSignatureRequest('1234', [
             'ordered_signers' => false,
             'reminder_settings' => [
                 'interval_in_days' => 7,
@@ -101,6 +101,26 @@ class SignatureRequestInteractionTest extends TestCase
             'email_custom_note' => 'Please sign these documents as soon as possible. Thanks.',
             'external_id' => '1234',
         ]);
+
+        $this->assertEquals($response->toArray(), FakeSignatureRequest::getProperties());
+    }
+
+    /**
+     * Activate a signature request
+     */
+    public function testActivateSignatureRequest(): void
+    {
+        // Create a mock handler
+        $mock = new MockHandler([
+            new Response(201, [], json_encode(FakeSignatureRequest::getProperties()))
+        ]);
+
+        $handlerStack = HandlerStack::create($mock);
+        $yousign = new YousignApi('1234');
+
+        $yousign->setClientOptions(['handler' => $handlerStack]);
+
+        $response = $yousign->activateSignatureRequest('1234');
 
         $this->assertEquals($response->toArray(), FakeSignatureRequest::getProperties());
     }

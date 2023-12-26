@@ -182,12 +182,28 @@ final class YousignApi extends AbstractApi
     /**
      * Patch a signature request
      *
+     * @param  string $signatureRequestId
      * @param  array<mixed> $params
      * @return SignatureRequest
      */
-    public function patchSignatureRequest(array $params = []): SignatureRequest
+    public function patchSignatureRequest(string $signatureRequestId, array $params = []): SignatureRequest
     {
-        $response = $this->client->patch('signature_requests', ['json' => $params]);
+        $response = $this->client->patch("signature_requests/{$signatureRequestId}", ['json' => $params]);
+
+        return Factory::createSignatureRequest(
+            json_decode((string) $response->getBody(), true)
+        );
+    }
+
+    /**
+     * Activate a signature request
+     *
+     * @param  string $signatureRequestId
+     * @return SignatureRequest
+     */
+    public function activateSignatureRequest(string $signatureRequestId): SignatureRequest
+    {
+        $response = $this->client->post("signature_requests/{$signatureRequestId}/activate", []);
 
         return Factory::createSignatureRequest(
             json_decode((string) $response->getBody(), true)
