@@ -64,16 +64,7 @@ class DocumentInteractionTest extends TestCase
 
         $yousign->setClientOptions(['handler' => $handlerStack]);
 
-        $response = $yousign->postDocument('1234', $file, 'signable_document', [
-            'ordered_signers' => false,
-            'reminder_settings' => [
-                'interval_in_days' => 7,
-                'max_occurrences' => 5,
-            ],
-            'timezone' => 'Europe/Paris',
-            'email_custom_note' => 'Please sign these documents as soon as possible. Thanks.',
-            'external_id' => '1234',
-        ]);
+        $response = $yousign->postDocument('1234', $file, 'signable_document');
 
         $this->assertEquals($response->toArray(), FakeDocument::getProperties());
     }

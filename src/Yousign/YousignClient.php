@@ -7,6 +7,7 @@ namespace Yousign;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Message;
+use GuzzleHttp\Psr7\Utils;
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -115,9 +116,25 @@ final class YousignClient
      */
     public function postFile(string $uri, array $params): ResponseInterface
     {
+        $form = [];
+        $i = 0;
+
+        foreach ($params as $key => $value) {
+
+            if ($value instanceof \SplFileInfo) {
+                $form[$i]['filename'] = $value->getFilename();
+                $value = Utils::tryFopen($value->getPathname(), 'r');
+            }
+
+            $form[$i]['name'] = $key;
+            $form[$i]['contents'] = $value;
+            $i++;
+        }
+
+        $this->options['headers']['Content-Type'] = 'multipart/form-data';
+
         return $this->send('post', $uri, [
-            'content-type' => 'multipart/form-data',
-            ...$params
+            'multipart' => [...$form]
         ]);
     }
 
