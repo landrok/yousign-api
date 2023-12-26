@@ -59,8 +59,6 @@ class SignerInteractionTest extends TestCase
 
         $handlerStack = HandlerStack::create($mock);
         $yousign = new YousignApi('1234');
-        $filePath = dirname(__DIR__, 3) . '/samples/test-file-1.pdf';
-        $file = new \SplFileInfo($filePath);
 
         $yousign->setClientOptions(['handler' => $handlerStack]);
 
@@ -73,7 +71,7 @@ class SignerInteractionTest extends TestCase
             'fr',
             'electronic_signature',
             [
-                'signature_authentication_mode' => 'no_opt'
+                'signature_authentication_mode' => 'no_otp'
             ]
         );
 

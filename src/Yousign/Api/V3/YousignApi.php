@@ -262,7 +262,7 @@ final class YousignApi extends AbstractApi
      * @param  string $last_name
      * @param  string $email
      * @param  string $phone_number E.164 format
-     * @param  string $locale
+     * @param  string $locale Enum: "en", "fr", "de", "it", "nl", "es", "pl"
      * @param  string $signature_level Enum: "electronic_signature",
      *                                       "advanced_electronic_signature",
      *                                       "electronic_signature_with_qualified_certificate",
@@ -282,7 +282,7 @@ final class YousignApi extends AbstractApi
         array $params = []
     ): Signer
     {
-        $response = $this->client->post("signature_requests/{$signatureRequestId}", [
+        $response = $this->client->post("signature_requests/{$signatureRequestId}/signers", [
             'json' => [
                 'info'            => [
                     'first_name'   => $first_name,
