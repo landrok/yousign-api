@@ -25,13 +25,23 @@ abstract class TypeResolver
      * @var array
      */
     protected static $modelTypes = [
-        'fileObjects'   => 'FileObjectCollection',
-        'files'         => 'FileCollection',
-        'group'         => 'Group',
-        'members'       => 'MemberCollection',
-        'notifications' => 'Notifications',
-        'permissions'   => 'PermissionCollection',
-        'workspaces'    => 'WorkspaceCollection',
+        // API v2
+        'fileObjects'       => 'FileObjectCollection',
+        'files'             => 'FileCollection',
+        'group'             => 'Group',
+        'members'           => 'MemberCollection',
+        'notifications'     => 'Notifications',
+        'permissions'       => 'PermissionCollection',
+        'workspaces'        => 'WorkspaceCollection',
+        // API v3
+        'document'          => 'Document',
+        'documents'         => 'DocumentCollection',
+        'signatureRequest'  => 'SignatureRequest',
+        'signatureRequests' => 'SignatureRequestCollection',
+        'signer'            => 'Signer',
+        'signers'           => 'SignerCollection',
+        'user'              => 'User',
+        'users'             => 'UserCollection',
     ];
 
     /**

@@ -45,7 +45,7 @@ abstract class Factory
     public static function createDocumentCollection(array $items = []): DocumentCollection
     {
         $collection = new DocumentCollection;
-        $items = $items['data'] ?? [];
+        if (array_key_exists('data', $items)) $items = $items['data'];
 
         foreach ($items as $item) {
             $collection->add(self::createDocument($item));
@@ -78,7 +78,7 @@ abstract class Factory
     public static function createSignatureRequestCollection(array $items = []): SignatureRequestCollection
     {
         $collection = new SignatureRequestCollection;
-        $items = $items['data'] ?? [];
+        if (array_key_exists('data', $items)) $items = $items['data'];
 
         foreach ($items as $item) {
             $collection->add(self::createSignatureRequest($item));
@@ -111,7 +111,7 @@ abstract class Factory
     public static function createSignerCollection(array $items = []): SignerCollection
     {
         $collection = new SignerCollection;
-        $items = $items['data'] ?? [];
+        if (array_key_exists('data', $items)) $items = $items['data'];
 
         foreach ($items as $item) {
             $collection->add(self::createSigner($item));
@@ -144,7 +144,7 @@ abstract class Factory
     public static function createUserCollection(array $items = []): UserCollection
     {
         $collection = new UserCollection;
-        $items = $items['data'] ?? [];
+        if (array_key_exists('data', $items)) $items = $items['data'];
 
         foreach ($items as $item) {
             $collection->add(self::createUser($item));
@@ -177,7 +177,7 @@ abstract class Factory
     public static function createWorkspaceCollection(array $items = []): WorkspaceCollection
     {
         $collection = new WorkspaceCollection;
-        $items = $items['data'] ?? [];
+        if (array_key_exists('data', $items)) $items = $items['data'];
 
         foreach ($items as $item) {
             $collection->add(self::createWorkspace($item));
