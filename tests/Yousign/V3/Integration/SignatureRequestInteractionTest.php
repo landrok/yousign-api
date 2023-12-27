@@ -5,6 +5,7 @@ namespace YousignTest\V3\Integration;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\Stream;
 use PHPUnit\Framework\TestCase;
 use Yousign\Api\V3\YousignApi;
 use YousignTest\V3\Fake\Model\FakeSignatureRequest;
@@ -123,6 +124,30 @@ class SignatureRequestInteractionTest extends TestCase
         $response = $yousign->activateSignatureRequest('1234');
 
         $this->assertEquals($response->toArray(), FakeSignatureRequest::getProperties());
+    }
+
+    /**
+     * Download a signature request
+     */
+    public function testDownloadSignatureRequest(): void
+    {
+        $fileContent = file_get_contents(dirname(__DIR__, 3) . '/tests/samples/test-file-1.pdf');
+
+        // Create a mock handler
+        $mock = new MockHandler([
+            new Response(200,['Content-Type' => 'application/pdf'], $fileContent)
+        ]);
+
+        $handlerStack = HandlerStack::create($mock);
+        $yousign = new YousignApi('1234');
+
+        $yousign->setClientOptions(['handler' => $handlerStack]);
+
+        $response = $yousign->downloadSignatureRequest('1234');
+
+        $this->assertNotNull($response);
+        $this->assertNotNull($response->getContents());
+        $this->assertInstanceOf(Stream::class, $response);
     }
 
     /**

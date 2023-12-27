@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yousign\Api\V3;
 
+use Psr\Http\Message\StreamInterface;
 use Yousign\Api\AbstractApi;
 use Yousign\Model\V3\Document;
 use Yousign\Model\V3\DocumentCollection;
@@ -208,6 +209,19 @@ final class YousignApi extends AbstractApi
         return Factory::createSignatureRequest(
             json_decode((string) $response->getBody(), true)
         );
+    }
+
+    /**
+     * Download a signature request
+     *
+     * @param  string $signatureRequestId
+     * @return StreamInterface
+     */
+    public function downloadSignatureRequest(string $signatureRequestId): StreamInterface
+    {
+        $response = $this->client->get("signature_requests/{$signatureRequestId}/documents/download", ['version' => 'current']);
+
+        return $response->getBody();
     }
 
     /**
