@@ -290,21 +290,23 @@ final class YousignApi extends AbstractApi
         string $first_name,
         string $last_name,
         string $email,
-        string $phone_number,
         string $locale,
         string $signature_level,
+        ?string $phone_number = null,
         array $params = []
     ): Signer
     {
+        $info = [
+            'first_name'   => $first_name,
+            'last_name'    => $last_name,
+            'email'        => $email,
+            'locale'       => $locale,
+        ];
+        if ($phone_number) $info['phone_number'] = $phone_number;
+
         $response = $this->client->post("signature_requests/{$signatureRequestId}/signers", [
             'json' => [
-                'info'            => [
-                    'first_name'   => $first_name,
-                    'last_name'    => $last_name,
-                    'email'        => $email,
-                    'phone_number' => $phone_number,
-                    'locale'       => $locale,
-                ],
+                'info'            => $info,
                 'signature_level' => $signature_level,
                 ...$params
             ]

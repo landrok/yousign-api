@@ -66,10 +66,10 @@ class SignerInteractionTest extends TestCase
             '1234',
             'Firstname',
             'Lastname',
-            '+33123456789',
             'signer@email.com',
             'fr',
             'electronic_signature',
+            '+33123456789',
             [
                 'signature_authentication_mode' => 'no_otp'
             ]
