@@ -59,7 +59,7 @@ class AdvancedModeTest extends TestCase
             'name'    => 'Name of my signable file.pdf',
             'content' => base64_encode(
                 file_get_contents(
-                    dirname(__DIR__, 3) . '/tests/samples/test-file-1.pdf'
+                    dirname(__DIR__, 3) . '/samples/test-file-1.pdf'
                 )
             ),
             'procedure' => $procedure->getId(),

@@ -86,8 +86,7 @@ final class YousignApi extends AbstractApi
         $response = $this->client->postFile("signature_requests/{$signatureRequestId}/documents", [
             'file'   => $file,
             'nature' => $nature,
-            ...$params
-        ]);
+        ] + $params);
 
         return Factory::createDocument(
             json_decode((string) $response->getBody(), true)
@@ -171,8 +170,7 @@ final class YousignApi extends AbstractApi
             'json' => [
                 'name'          => $name,
                 'delivery_mode' => $deliveryMode,
-                ...$params
-            ]
+            ] + $params
         ]);
 
         return Factory::createSignatureRequest(
@@ -308,8 +306,7 @@ final class YousignApi extends AbstractApi
             'json' => [
                 'info'            => $info,
                 'signature_level' => $signature_level,
-                ...$params
-            ]
+            ] + $params
         ]);
 
         return Factory::createSigner(

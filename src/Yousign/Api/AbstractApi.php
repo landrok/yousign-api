@@ -29,8 +29,9 @@ abstract class AbstractApi
      * It helps configuring low-level client options
      * 
      * @param  array<mixed> $options
+     * @return static
      */
-    public function setClientOptions(array $options): static
+    public function setClientOptions(array $options): self
     {
         $this->client->setOptions($options);
 
