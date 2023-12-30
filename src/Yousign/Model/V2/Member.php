@@ -17,6 +17,7 @@ use Yousign\Model\AbstractModel;
 
 /**
  * Member handles member data
+ * @property FileObjectCollection $fileObjects
  */
 class Member extends AbstractModel
 {

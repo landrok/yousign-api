@@ -16,8 +16,7 @@ namespace Yousign\Model\V2;
 use Yousign\Model\AbstractModelCollection;
 
 /**
- * FileObjectCollection handles a pool of file objects
- * data
+ * FileObjectCollection handles a pool of file objects data
  */
 class FileObjectCollection extends AbstractModelCollection
 {
