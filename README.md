@@ -5,7 +5,7 @@ Yousign API client
 [![Maintainability](https://api.codeclimate.com/v1/badges/cad81750c32c5346ac6b/maintainability)](https://codeclimate.com/github/landrok/yousign-api/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/cad81750c32c5346ac6b/test_coverage)](https://codeclimate.com/github/landrok/yousign-api/test_coverage)
 
-Yousign API client is a wrapper for the Yousign API v2 in PHP.
+Yousign API client is a wrapper for the Yousign API v3 and v2 in PHP.
 
 Its purpose is to use this API without having to write the HTTP calls
 yourself and then to retrieve the returned data through an object model.
@@ -13,13 +13,9 @@ yourself and then to retrieve the returned data through an object model.
 If you still want to make HTTP calls to check the API responses, this is
 possible thanks to the low-level calls.
 
-It provides several an API wrapper and shortcut methods.
-
-All the API calls are wrapped into an object model. All features are
-implemented, it aims to be a full-featured client.
-
-All subsequent types (Member, Procedure, File, etc...) are implemented
-too.
+All the API calls are wrapped into an object model. All features and models
+are not implemented yet, but feel free to contribute. For more information
+you can see the [Roadmap](#roadmap).
 
 [See the full documentation](https://yousign-api.readthedocs.io/) or
 an overview below.
@@ -30,9 +26,9 @@ Table of contents
 - [Requirements](#requirements)
 - [Install](#install)
 - [Quick start](#quick-start)
-- [Basic mode](#basic-mode)
-- [Advanced mode](#advanced-mode)
-- [Branding with signature UI](#branding-with-signature-ui)
+- [Create a Signature Request in v3](#create-a-signature-request-in-v3)
+- [Create a Procedure in v2](#create-a-procedure-in-v2)
+- [Roadmap](#roadmap)
 
 ________________________________________________________________________
 
@@ -40,8 +36,7 @@ Requirements
 ------------
 
 - PHP 7.4+
-- You have to create your account on Yousign platform to get an API
-token before using this library.
+- A Yousign API token
 
 ________________________________________________________________________
 
@@ -57,87 +52,50 @@ ________________________________________________________________________
 Quick start
 -----------
 
-In this example, we will get all users in staging mode.
+Fetch all users from Yousign API v3.
 
 ```php
-use Yousign\YousignApi;
+use Yousign\Api\V3\YousignApi;
 
 /*
  * token
  */
 $token = '123456789';
 
-$yousign = new YousignApi($token);
+/*
+ * Production mode
+ */
+$production = false;
+
+$yousign = new YousignApi($token, $production);
 
 $users = $yousign->getUsers();
-
 ```
 
-Good news, your token is available.
+Fetch all users from Yousign API v2.
 
+```php
+use Yousign\Api\V2\YousignApi;
+
+/*
+ * token
+ */
+$token = '123456789';
+
+/*
+ * Production mode
+ */
+$production = false;
+
+$yousign = new YousignApi($token, $production);
+
+$users = $yousign->getUsers();
+```
 
 ________________________________________________________________________
 
-Responses and data
-------------------
-
-All API responses are converted into objects that are iterable when it's
-a collection (ie a list of users) or an item (an user itself).
-
-### Dump data
-
-You can use toArray() method to dump all data as a PHP array.
-
-```php
-
-print_r(
-    $users->toArray()
-);
-
-```
-
-### Iterate over a list
-
-You can iterate over all items of a collection.
-
-```php
-
-foreach ($users as $user) {
-    /*
-     * For each User model, some methods are available
-     */
-
-    // toArray(): to get all property values
-    print_r($user->toArray());
-
-    // get + property name
-    echo PHP_EOL . "User.id=" . $user->getId();
-
-    // property (read-only)
-    echo PHP_EOL . "User.id=" . $user->id;
-
-    // Some properties are models that you can use the same way
-    echo PHP_EOL . "User.Group.id=" . $user->getGroup()->getId();
-    echo PHP_EOL . "User.Group.id=" . $user->group->id;
-
-    // Some properties are collections that you can iterate
-    foreach ($user->group->permissions as $index => $permission) {
-        echo PHP_EOL . "User.Group.Permission.name=" . $permission->getName();
-    }
-
-    // At any level, you can call a toArray() to dump the current model
-    // and its children
-    echo PHP_EOL . "User.Group=\n";
-    print_r($user->group->toArray());
-    echo PHP_EOL . "User.Group.Permissions=\n";
-    print_r($user->group->permissions->toArray());
-}
-
-```
-________________________________________________________________________
-
-Basic Mode
-----------
+Create a Signature Request in v3
+--------------------------------
 
 Let's create your first signature procedure in basic mode.
 
@@ -147,189 +105,60 @@ features.
 ```php
 use Yousign\YousignApi;
 
-/*
- * Token
- */
 $token = '123456789';
-
-/*
- * Production mode
- */
 $production = false;
 
-/*
- * Instanciate API wrapper
- */
 $yousign = new YousignApi($token, $production);
 
 /*
- * 1st step : send a file
+ * 1 Step - Create the SR
  */
-$file = $yousign->postFile([
-    'name'    => 'My filename.pdf',
-    'content' => base64_encode(
-        file_get_contents(
-            dirname(__DIR__, 2) . '/tests/samples/test-file-1.pdf'
-        )
-    )
-]);
+$signatureRequest = $yousign->postSignatureRequest('New Signature Request', 'email');
 
 /*
- * 2nd step : create the procedure
+ * 2 Step - Add Documents
  */
-$procedure = $yousign->postProcedure([
-    "name"        => "My first procedure",
-    "description" => "Awesome! Here is the description of my first procedure",
-    "members"     => [
-        [
-            "firstname" => "John",
-            "lastname" => "Doe",
-            "email" => "john.doe@yousign.fr",
-            "phone" => "+33612345678",
-            "fileObjects" => [
-                [
-                    "file" => $file->getId(),
-                    "page" => 2,
-                    "position" => "230,499,464,589",
-                    "mention" => "Read and approved",
-                    "mention2" => "Signed by John Doe"
-                ]
-            ]
+$document = new \SplFileInfo('/path/to/file');
+$yousign->postDocument($signatureRequest->id, $document, 'signable_document');
+
+/*
+ * 3 Step - Add a Signer
+ */
+$yousign->postSigner(
+    $signatureRequest->id,
+    'John',
+    'Doe',
+    'john.doe@yousign.fr',
+    'fr',
+    'electronic_signature',
+    '+33612345678',
+    [
+        'signature_authentication_mode' => 'no_otp',
+        'redirect_urls'                 => [
+            'success' => "https://exemple.com/signature?event=signing_complete",
+            'error'   => "https://exemple.com/signature?event=signing_error",
         ]
     ]
-]);
+);
 
-// toJson() supports all PHP json_encode flags
-echo $procedure->toJson(JSON_PRETTY_PRINT);
-```
-
-When the procedure is created, you can retrieve all the data with the
-getters or dump all data with `toJson()` and `toArray()` methods.
-
-It would output something like:
-
-```json
-{
-    "id": "\/procedures\/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-    "name": "My first procedure",
-    "description": "Awesome! Here is the description of my first procedure",
-    "createdAt": "2018-12-01T11:49:11+01:00",
-    "updatedAt": "2018-12-01T11:49:11+01:00",
-    "finishedAt": null,
-    "expiresAt": null,
-    "status": "active",
-    "creator": null,
-    "creatorFirstName": null,
-    "creatorLastName": null,
-    "workspace": "\/workspaces\/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-    "template": false,
-    "ordered": false,
-    "parent": null,
-    "metadata": [],
-    "config": [],
-    "members": [
-        {
-            "id": "\/members\/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-            "user": null,
-            "type": "signer",
-            "firstname": "John",
-            "lastname": "Doe",
-            "email": "john.doe@yousign.fr",
-            "phone": "+33612345678",
-            "position": 1,
-            "createdAt": "2018-12-01T11:49:11+01:00",
-            "updatedAt": "2018-12-01T11:49:11+01:00",
-            "finishedAt": null,
-            "status": "pending",
-            "fileObjects": [
-                {
-                    "id": "\/file_objects\/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-                    "file": {
-                        "id": "\/files\/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-                        "name": "The best name for my file.pdf",
-                        "type": "signable",
-                        "contentType": "application\/pdf",
-                        "description": null,
-                        "createdAt": "2018-12-01T11:36:20+01:00",
-                        "updatedAt": "2018-12-01T11:49:11+01:00",
-                        "sha256": "bb57ae2b2ca6ad0133a699350d1a6f6c8cdfde3cf872cf526585d306e4675cc2",
-                        "metadata": [],
-                        "workspace": "\/workspaces\/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-                        "creator": null,
-                        "protected": false,
-                        "position": 0,
-                        "parent": null
-                    },
-                    "page": 2,
-                    "position": "230,499,464,589",
-                    "fieldName": null,
-                    "mention": "Read and approved",
-                    "mention2": "Signed by John Doe",
-                    "createdAt": "2018-12-01T11:49:11+01:00",
-                    "updatedAt": "2018-12-01T11:49:11+01:00",
-                    "parent": null,
-                    "reason": "Signed by Yousign"
-                }
-            ],
-            "comment": null,
-            "notificationsEmail": [],
-            "operationLevel": "custom",
-            "operationCustomModes": [
-                "sms"
-            ],
-            "operationModeSmsConfig": null,
-            "parent": null
-        }
-    ],
-    "subscribers": [],
-    "files": [
-        {
-            "id": "\/files\/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-            "name": "My filename.pdf",
-            "type": "signable",
-            "contentType": "application\/pdf",
-            "description": null,
-            "createdAt": "2018-12-01T11:36:20+01:00",
-            "updatedAt": "2018-12-01T11:49:11+01:00",
-            "sha256": "bb57ae2b2ca6ad0133a699350d1a6f6c8cdfde3cf872cf526585d306e4675cc2",
-            "metadata": [],
-            "workspace": "\/workspaces\/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-            "creator": null,
-            "protected": false,
-            "position": 0,
-            "parent": null
-        }
-    ],
-    "relatedFilesEnable": false,
-    "archive": false,
-    "archiveMetadata": [],
-    "fields": [],
-    "permissions": []
-}
+/*
+ * 4 Step - Activate the SR
+ */
+$signatureRequest = $yousign->activateSignatureRequest($signatureRequest->id);
 ```
 ________________________________________________________________________
 
-Advanced Mode
--------------
+Create a procedure in v2
+------------------------
 
 Here is how to create a procedure in 5 steps with the advanced mode.
 
 ```php
 use Yousign\YousignApi;
 
-/*
- * Token
- */
 $token = '123456789';
-
-/*
- * Production mode
- */
 $production = false;
 
-/*
- * Instanciate API wrapper
- */
 $yousign = new YousignApi($token, $production);
 
 /*
@@ -396,180 +225,45 @@ In step 4, you may add one or more signature images for each one.
 
 ________________________________________________________________________
 
-Branding with signature UI
---------------------------
+Roadmap
+-------
 
-By default, Signature-UI has the Yousign theme (logo, colors, ...) but
-you can customize the signature flow embedded in the iFrame from
-Signature-UI view located in the Admin menu of the app or entirely
-customize this iFrame by using a specific resource `/signature_uis`.
+Models integration progress:
 
+- [x] Signature Request
+- [x] Document
+- [x] Signer
+- [ ] Approver
+- [ ] Follower
+- [ ] Audit Trail
+- [ ] Metadata
 
-```php
-use Yousign\YousignApi;
+Models integration progress: 
 
-/*
- * Token
- */
-$token = '123456789';
+- [x] CRUD on Signature Request
+- [x] Activate Signature Request
+- [x] CRUD on Document
+- [x] CRUD on Signer
+- [ ] CRUD on Approver
+- [ ] CRUD on Follower
+- [ ] Get Audit Trail
+- [ ] CRUD on Metadata
 
-/*
- * Production mode
- */
-$production = false;
+Others
 
-/*
- * Instanciate API wrapper
- */
-$yousign = new YousignApi($token, $production);
-
-/*
- * Create your customized UI
- */
-$ui = $yousign->postSignatureUi([
-    "name"                    => "My first template for Signature-UI",
-    "description"             => "Here is the Signature-UI template for Yousign Developers.",
-    "defaultZoom"             => 100,
-    "logo"                    => "data:image/png;base64,iVBORw0K [...] XIwU3i6foIAAAAAElFTkSuQmCC",
-    "languages"               => ["fr", "en"],
-    "defaultLanguage"         => "en",
-    "labels"                  => [
-        [
-            "name"      => "NAME OF THE LABEL",
-            "languages" => [
-                "en" => "Label en",
-                "fr" => "Label fr"
-            ],
-            "creator"   => null,
-        ]
-    ],
-    "signImageTypesAvailable" => [
-        "name",
-        "draw",
-    ],
-    "enableHeaderBar"         => true,
-    "enableHeaderBarSignAs"   => true,
-    "enableSidebar"           => true,
-    "enableMemberList"        => true,
-    "enableDocumentList"      => true,
-    "enableDocumentDownload"  => true,
-    "enableActivities"        => false,
-    "authenticationPopup"     => false,
-    "enableRefuseComment"     => true,
-    "fonts"                   => ["Roboto", "Lato"],
-    "creator"                 => null,
-    "redirectCancel"          => [
-        "url"    => "https://example.com?cancel=1",
-        "target" => "_top",
-        "auto"   => false
-    ],
-    "redirectError"           => [
-        "url"    => "https://example.com?error=1",
-        "target" => "_blank",
-        "auto"   => true
-    ],
-    "redirectSuccess"           => [
-        "url"    => "https://example.com?success=1",
-        "target" => "_parent",
-        "auto"   => true
-    ],
-    "style"                   => "
-        .sign-ui-header-bar { background-color: #00f }
-        .sign-ui-headerbar-signas { background-color: #f00 }
-        .sign-ui-headerbar-signas--primary { background-color: #f00 }
-        .sign-ui-tab-item { color: #000 }
-        .sign-ui-tab-item--current { background-color: #0f0; color: #fff }
-    "
-]);
-```
-
-In the response below, you will get an id that will be useful to create
-your iFrame.
-
-
-```php
-[
-    "id"                      => "/signature_uis/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-    "name"                    => "My first template for Signature-UI",
-    "description"             => "Here is the Signature-UI template for Yousign Developers.",
-    "enableHeaderBar"         => true,
-    "enableHeaderBarSignAs"   => true,
-    "enableSidebar"           => true,
-    "enableMemberList"        => true,
-    "enableDocumentList"      => true,
-    "enableDocumentDownload"  => true,
-    "enableActivities"        => true,
-    "authenticationPopup"     => true,
-    "enableRefuseComment"     => true,
-    "defaultZoom"             => 100,
-    "logo"                    => "data:image/png;base64,iVBORw0K [...] XIwU3i6foIAAAAAElFTkSuQmCC",
-    "defaultLanguage"         => "en",
-    "signImageTypesAvailable" => [
-        "name",
-        "draw"
-    ],
-    "languages"               => [
-        "fr",
-        "en",
-        "es",
-        "de",
-        "it",
-        "pt",
-        "nl"
-    ],
-    "labels"                  => [
-        [
-            "id"        => "/signature_ui_labels/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-            "name"      => "NAME OF THE LABEL",
-            "languages" => [
-                "en" => "Label en",
-                "fr" => "Label fr"
-            ],
-            "creator"   => null,
-            "createdAt" => "2018-12-07T07:34:22+01:00",
-            "updatedAt" => "2018-12-07T07:34:22+01:00"
-        ]
-    ],
-    "fonts"                   => [
-        "Roboto",
-        "Lato"
-    ],
-    "style"                   => "Just a CSS string for customize all of our iFrame.",
-    "redirectCancel"          => [
-        "url"    => "https://example.com?cancel=1",
-        "target" => "_top",
-        "auto"   => false
-    ],
-    "redirectError"           => [
-        "url"    => "https://example.com?error=1",
-        "target" => "_blank",
-        "auto"   => true
-    ],
-    "redirectSuccess"           => [
-        "url"    => "https://example.com?success=1",
-        "target" => "_parent",
-        "auto"   => true
-    ],
-    "workspace"               => "/workspaces/XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-    "creator"                 => null,
-    "createdAt"               => "2018-12-07T07:34:22+01:00",
-    "updatedAt"               => "2018-12-07T07:34:22+01:00"
-]
-```
-
-________________________________________________________________________
+- [ ] Add properties to v3 models classes to have IDE auto completion
+- [ ] Update the documentation with v3 examples
 
 More
 ----
 
-- [See the full documentation](https://yousign-api.readthedocs.io/)
-
-- To discuss new features, make feedback or simply to share ideas, you
-  can contact me on Mastodon at
-  [https://cybre.space/@landrok](https://cybre.space/@landrok)
+- See the [full documentation](https://developers.yousign.com/)
 
 - Create an account and an API token on
   [Yousign Sandbox sign-up](https://staging-auth.yousign.com/pre-signup)
 
-- [Official API manual](https://dev.yousign.com/?version=latest)
+- Official Yousign [Postman Collections](https://www.postman.com/yousign)
 
+- To discuss new features, make feedback or simply to share ideas, you
+  can contact me on Mastodon at
+  [https://cybre.space/@landrok](https://cybre.space/@landrok)
