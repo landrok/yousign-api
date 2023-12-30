@@ -37,8 +37,9 @@ abstract class AbstractModel
      *
      * @param  string  $name
      * @param  mixed  $value
+     * @return self
      */
-    public function set(string $name, mixed $value): self
+    public function set(string $name, $value): self
     {
         $this->properties[$name] = $this->transform($name, $value);
 
@@ -49,9 +50,10 @@ abstract class AbstractModel
      * Affect a value to a property
      *
      * @param  string $name
-     * @return mixed $value
+     * @param  mixed  $value
+     * @return mixed
      */
-    private function transform(string $name, mixed $value): mixed
+    private function transform(string $name, $value)
     {
         if (is_array($value) && TypeResolver::exists($name)) {
             $method = TypeResolver::getFactoryMethod($name);
@@ -68,8 +70,11 @@ abstract class AbstractModel
 
     /**
      * Standard getter method
+     *
+     * @param  string $name
+     * @return mixed
      */
-    public function get(string $name): mixed
+    public function get(string $name)
     {
         return $this->has($name)
             ? $this->properties[$name]

@@ -67,8 +67,10 @@ abstract class AbstractProcess
 
     /**
      * Add one file to the process
+     * 
+     * @return static
      */
-    public function addFile(array $file): static
+    public function addFile(array $file): self
     {
         $this->files->add(
             V2Factory::createFile($file)
@@ -79,8 +81,10 @@ abstract class AbstractProcess
 
     /**
      * Add the procedure to the process
+     * 
+     * @return static
      */
-    public function setProcedure(array $procedure): static
+    public function setProcedure(array $procedure): self
     {
         $this->procedure = V2Factory::createProcedure($procedure);
 
@@ -107,8 +111,10 @@ abstract class AbstractProcess
 
     /**
      * Add one document to the process
+     * 
+     * @return static
      */
-    public function addDocument(array $document): static
+    public function addDocument(array $document): self
     {
         $this->documents->add(
             V3Factory::createDocument($document)
@@ -119,8 +125,10 @@ abstract class AbstractProcess
 
     /**
      * Add the signature request to the process
+     * 
+     * @return static
      */
-    public function setSignatureRequest(array $signatureRequest): static
+    public function setSignatureRequest(array $signatureRequest): self
     {
         $this->signatureRequest = V3Factory::createSignatureRequest($signatureRequest);
 

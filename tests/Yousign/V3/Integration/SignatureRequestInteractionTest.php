@@ -131,7 +131,7 @@ class SignatureRequestInteractionTest extends TestCase
      */
     public function testDownloadSignatureRequest(): void
     {
-        $fileContent = file_get_contents(dirname(__DIR__, 3) . '/tests/samples/test-file-1.pdf');
+        $fileContent = file_get_contents(dirname(__DIR__, 3) . '/samples/test-file-1.pdf');
 
         // Create a mock handler
         $mock = new MockHandler([
